@@ -16,7 +16,7 @@ let personObj = {
 };
 personObj.hobby = "singing";
 // console.log(personObj);
-personObj.city = "delhi";
+personObj.city = "delhi"; 
 // console.log(personObj);
 
 //----------------------------------------priting square brackets
