@@ -5,7 +5,7 @@
 
 //calculating freq of elemnts in arr
 // let arr = [1,2,1,4,2,2,4];
-
+// asda
 /*-----using map-----
  let map=new Map();
 
