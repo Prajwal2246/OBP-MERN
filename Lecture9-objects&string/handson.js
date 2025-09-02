@@ -66,6 +66,7 @@ console.log(str.substring("3")); //llo welcome the mern batch.
 console.log(str.substring("-3")); // hello welcome the mern batch. (entire string return asn "-3" convert to num i.e. -3 then it consider as 0 so entire string is returned)
 console.log(str.substring(3, 10000)); //3 to length of string
 console.log(str.substring(-3, -10)); //empty string
+console.log(str.substring(35, 4));
 
 /* slice 
  -behaves same as for array
@@ -151,7 +152,7 @@ console.log(safeUser); */  //password has username but destruturing makes  safeU
    user:"prajwal"
 };
 console.log(safeUser);//{username: 'admin', user: 'prajwal'} */
-const { user, ...safeUser } = { 
+const { user, ...safeUser } = {
    username: "admin",
    user:"prajwal",
    password: "1234" 
