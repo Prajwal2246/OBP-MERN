@@ -90,3 +90,64 @@ function printPattern(m){
 }
 
 printPattern(m)
+
+
+// studenntgrade classification using switch case
+function grade(N) {
+    let result;
+
+    switch (true) {
+        case (N > 90):
+            result = "Excellent";
+            break;
+        case (N > 80 && N <= 90):
+            result = "Good";
+            break;
+        case (N > 70 && N <= 80):
+            result = "Fair";
+            break;
+        case (N > 60 && N <= 70):
+            result = "Meets Expectations";
+            break;
+        default:
+            result = "Below Expectations";
+    }
+
+    return result;
+}
+
+// Example usage:
+console.log(grade(95)); // Excellent
+console.log(grade(85)); // Good
+console.log(grade(75)); // Fair
+console.log(grade(65)); // Meets Expectations
+console.log(grade(50)); // Below Expectations
+
+
+
+
+function triangleType(a, b, c) {
+    let largest = Math.max(a, b, c);
+    let sumSquares = a * a + b * b + c * c;
+    let otherSquares = sumSquares - largest * largest;
+
+    let result;
+
+    switch (true) {
+        case (largest * largest === otherSquares):
+            result = 2; // right-angled
+            break;
+        case (largest * largest > otherSquares):
+            result = 3; // obtuse-angled
+            break;
+        default:
+            result = 1; // acute-angled
+    }
+
+    return result;
+}
+
+console.log(triangleType(3, 4, 5)); // 2 (right) - 5² = 25, 3² + 4² = 25
+console.log(triangleType(2, 2, 3)); // 3 (obtuse) - 3² = 9, 2² + 2² = 8, so 9 > 8
+console.log(triangleType(3, 5, 7)); // 3 (obtuse) - 7² = 49, 3² + 5² = 34, so 49 > 34
+console.log(triangleType(3, 4, 4)); // 1 (acute) - 4² = 16, 3² + 4² = 25, so 16 < 25
