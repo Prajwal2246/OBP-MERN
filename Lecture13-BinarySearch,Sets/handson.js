@@ -230,7 +230,7 @@ console.log("Frequency map:", map1);
 let arr4=[1,2,4,5,6]; let arr5=[2,5,6,3,1,3];
 
 function intersection(arr4,arr5){
-    let ans=[];
+    /* let ans=[];
     let set=new Set(arr4);
     let set2=new Set(arr5);
     
@@ -239,7 +239,19 @@ function intersection(arr4,arr5){
             ans.push(num);
         }
     }
-    return ans;
+    return ans; */
+    let intersection=[];
+    let setArr4=new Set(arr4);
+
+    for(let i=0;i<arr5.length;i++){
+      if(setArr4.has(arr5[i])){
+        intersection.push(arr5[i]);
+      }
+    }
+    intersection = [...new Set(intersection)];
+    //let intersectionSet = new Set(intersection);
+    //intersection = [...intersectionSet]
+    return intersection;
 }
 
 console.log(intersection(arr4,arr5).join(","));
