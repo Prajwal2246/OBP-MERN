@@ -151,3 +151,31 @@ console.log(triangleType(3, 4, 5)); // 2 (right) - 5² = 25, 3² + 4² = 25
 console.log(triangleType(2, 2, 3)); // 3 (obtuse) - 3² = 9, 2² + 2² = 8, so 9 > 8
 console.log(triangleType(3, 5, 7)); // 3 (obtuse) - 7² = 49, 3² + 5² = 34, so 49 > 34
 console.log(triangleType(3, 4, 4)); // 1 (acute) - 4² = 16, 3² + 4² = 25, so 16 < 25
+
+
+
+//Anagram
+function isAnagram(a,b){
+  if(a.length!=b.length){
+    return false;
+  }
+  let map=new Map();
+  for(let i=0;i<a.length;i++){
+    let c=map.has(a[i])?map.get(a[i]):0;
+    map.set(a[i],c+1);
+  }
+  for(let i=0;i<b.length;i++){
+    if(map.has(b[i])){
+      map.set(b[i],map.get(b[i])-1);
+    }
+    else{
+      return false;
+    }
+  }
+  for(let num of map.values()){
+    if(num!=0){
+      return false;
+    }
+  }
+  return true;
+}
