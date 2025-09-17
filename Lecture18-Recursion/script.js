@@ -111,5 +111,6 @@ function generatePermutations(str, j = 0) {
 
 generatePermutations("abc");
 console.log(ans);
+/* t.c:O(n!) s.c:O() */
  
 
