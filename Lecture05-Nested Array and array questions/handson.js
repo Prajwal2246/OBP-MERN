@@ -177,3 +177,110 @@ for (let i = 0; i < arr.length; i++) {
   }
 }
 console.log(ans);
+
+
+
+/*  2d arrays 
+let arr=[
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+];
+
+let row=arr.length;
+let col = arr[0].length;
+//sum of each row
+for(let i=0;i<row;i++){
+    let sum =0;
+    for(let j=0;j<col;j++){
+        sum+=arr[i][j];
+    }
+    console.log("sum of rows:" ,sum)
+}
+
+//sum of cols
+for(let i=0;i<col;i++){
+    let sum=0;
+    for(let j=0;j<row;j++){
+        sum+=arr[j][i];
+    }
+    console.log("sum of cols: ",sum);
+}
+
+//transpose of matrix
+let transpose=[];
+for(let i=0;i<col;i++){
+     transpose[i]=[];
+    for(let j=0;j<row;j++){
+        transpose[i][j]=arr[j][i];
+    }
+    
+}
+
+console.log(transpose)
+
+//search elem in 2d array
+
+let target=5;
+for(let i=0;i<row;i++){
+    for(let j=0;j<col;j++){
+        if(arr[i][j]==target){
+            console.log(i,j);
+        }
+    }
+}
+
+//primary diagonal sum
+  let sum =0;
+for(let i=0;i<arr.length;i++){
+    sum+=arr[i][i];
+
+}
+ console.log("primary diagonal sum:",sum);
+ 
+ //secondary diagonal
+ let secondarysum=0;
+ for(let i=0;i<row;i++){
+     for(let j=0;j<col;j++){
+         if(j==arr.length-1-i){
+             secondarysum+=arr[i][j];
+         }
+     }
+ }
+ console.log("secondary sum: ",secondarysum)
+ 
+ let ssum=0;
+ for(let i=0;i<row;i++){
+     ssum+=arr[i][arr.length-1-i];
+ }
+ console.log("secondary sum ",ssum)
+ 
+let arr=[
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+];
+
+let row=arr.length;
+let col=arr[0].length;
+
+
+//making 90deg rotation clockwise
+let transpose=[];
+for(let i=0;i<col;i++){
+    transpose[i]=[];
+    for(let j=0;j<row;j++){
+        transpose[i][j]=arr[j][i];
+    }
+}
+
+
+for(let i=0;i<transpose.length;i++){
+    transpose[i].reverse();
+}
+console.log(transpose)
+
+
+
+    
+*/

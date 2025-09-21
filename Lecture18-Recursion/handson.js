@@ -269,3 +269,124 @@ function stringPermutations(str,ind=0){
 
 stringPermutations("abc");
 console.log(ans);
+
+
+
+/* string encoding */
+let str="123";
+
+function stringDecode(str,res="",result=[]){
+    if(str.length === 0){
+        result.push(res);
+        return ;
+    }
+    
+    ///for one digit
+    let num1=parseInt(str[0]);
+    if(num1>0){
+        stringDecode(str.slice(1),res+String.fromCharCode(96+num1),result)
+    }
+    
+    //for 2 digit
+    if(str.length>=2){
+    let num2=parseInt(str.slice(0,2));
+    if(num2>=10 && num2<=26){
+        stringDecode(str.slice(2),res+String.fromCharCode(96+num2),result)
+    }
+    }
+    return result;
+    
+}
+
+let ansarr=stringDecode(str);
+ansarr.sort();
+for(const values of ansarr){
+    console.log(values);
+} 
+
+    /* a maze paths */
+
+function mazePath(m,n,i=0,j=0,psf=""){
+    if(i==m && j==n){
+        console.log(psf);
+        return;
+    }
+    
+    if(i<m){
+        mazePath(m,n,i+1,j,psf+"v");
+    }
+    if(j<n){
+        mazePath(m,n,i,j+1,psf+"h");
+    }
+}
+
+mazePath(1,1);
+
+/* ----------------------------------contest on recursion----------------------- */
+
+/* find substring using recursion */
+let str="abc";
+
+function substring(str){
+    if(str.length==0){
+        return ;
+    }
+    
+    let k=1;
+    while(k<=str.length){
+        console.log(str.slice(0,k));
+        k++;
+    }
+    substring(str.slice(1))
+}
+
+substring(str);
+
+/* check weather a number is in fibonaci series or not */
+let n=15;
+
+function checkFib(n){
+    function check(a,b){
+        if(a==n) return true;
+        if(a>n) return false;
+        
+        return check(b,a+b);
+    }
+    return check(0,1);
+    
+}
+
+console.log(checkFib(n));
+
+
+/* ---------------time complexity */
+function solve(n) {
+  if (n <= 1) return;
+  solve(n / 2);
+  solve(n / 2);
+  for (let i = 0; i < n; i++) console.log(i);
+}
+
+/* solve(n) runs for 2^logn(base2)
+for loop - O(n)
+ -Each call runs a loop that depends on the current input size.
+ -The input size halves with each recursive level.
+ -The total work at each level sums to n.
+--With logn- logn levels, total work is n×logn
+
+ */
+
+
+/* The function to calculate the points is defined as follows:
+
+function calculatePoints(n) {
+  if (n < 2) return n;
+  let prevPoints = calculatePoints(n - 1);
+  let prevPrevPoints = calculatePoints(n - 2);
+  return prevPoints * prevPrevPoints + 1;
+}
+A customer has made 5 purchases. What is the exact total number of points earned by this customer? Explain each step of your calculation. 
+
+ans=7
+*/
+
