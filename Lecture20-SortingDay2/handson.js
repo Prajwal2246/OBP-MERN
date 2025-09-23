@@ -101,6 +101,24 @@ for(let i=arr3.length-2;i>=0;i--){
     }
 
 }
-console.log(arr3);
+// console.log(arr3);
 
+let arr5=[3,1,6,2,8,7,4];
+
+function insertionSort(arr5){
+
+    for(let i=1;i<arr5.length;i++){
+        let curr=arr5[i];
+        let j=i-1;
+        while(j>=0 && curr<arr5[j]){
+            arr5[j+1]=arr5[j];
+            j--;
+        }
+        
+        arr5[j+1]=curr;
+    }
+    return arr5;
+}
+
+console.log(insertionSort(arr5));
 
