@@ -195,3 +195,95 @@ const upper=names.map((name)=>{
 console.log("original array",names);
 console.log("uppercase names array using map",upper);
 
+
+
+/* -------------------contest on sorting------------ */
+/* 1st question */
+ arr=[1,4,3,2]
+ let arr3=[6,3,2,8];
+ let ans2=[...arr,...arr3];
+ function mergeSort(arr){
+  if(arr.length <=1) return arr;
+  let mid = Math.floor(arr.length/2);
+  let left = mergeSort(arr.slice(0,mid));
+  let right = mergeSort(arr.slice(mid));
+
+  return merge(left,right);
+ }
+ function merge(left,right){
+  let i=0,j=0;res=[];
+
+  while(i<left.length && j<right.length){
+    if(left[i]<right[j]){
+      res.push(left[i]);
+      i++;
+    }else{
+      res.push(right[j]);
+      j++;
+    }
+  }
+   while (i < left.length) {
+    res.push(left[i]);
+    i++;
+  }
+
+  while (j < right.length) {
+    res.push(right[j]);
+    j++;
+  }
+
+  return res;
+ }
+ const ans4=mergeSort(ans2)
+ console.log(ans4);
+ 
+
+
+/* question 2 */
+
+let arr1=[1,4,3,5,6,2];
+
+function insertionSort(arr){
+  for(let i=1;i<arr.length;i++){
+    let j=i-1;
+    let curr=arr[i];
+    while(j>=0 && arr[j]>curr){
+      arr[j+1]=arr[j];
+      j--;
+    }
+    arr[j+1]=curr;
+    console.log(arr);
+  }
+}
+
+insertionSort(arr1);
+
+
+/* 3rd question */
+const employees = [
+  { department: "HR", name: "Anjali", age: 32 },
+  { department: "Tech", name: "Aman", age: 28 },
+  { department: "HR", name: "Rahul", age: 25 },
+  { department: "Tech", name: "Sneha", age: 24 },
+  { department: "Finance", name: "Kunal", age: 30 },
+  { department: "Tech", name: "Divya", age: 28 },
+];
+employees.sort((a,b)=>{
+  if(a.department.localeCompare(b.department) === b.department.localeCompare(a.department)){
+    return a.age-b.age;
+  }
+  return a.department.localeCompare(b.department)});
+console.log(employees)
+
+
+/* 4th question */
+const arr2=[
+	{postid:12,userid:2,content:"sdas",likes:190},
+	{postid:1,userid:1,content:"sds",likes:150},
+]
+
+const ans=arr2.sort((a,b)=>{
+  return a.likes-b.likes;
+})
+console.log(ans);
+
