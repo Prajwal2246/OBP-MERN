@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width:device-width, initial-scale1.0" />
+    <title>HTML in Practice</title>
+  </head>
+  <body>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <!-- playing with html tags : inline and block elements -->
+    <a href="www.Google.comn">google</a> <a href="">Google</a>
+    <!-- inline elemet -->
+    <h1>Block Element</h1>
+    <!-- Block element -->
+    <h1>Block element</h1>
+
+    <!-- span tag->
+         -is simillar to div,but is an inline tag and mostly used when we apply some specific styling to elements which cannot be styled with their parent tag.
+       -->
+    <p>
+      Lorem ipsum dolor sit amet,
+      <strong><span>consectetur adipisicing elit</span></strong
+      >. Fugit natus quod perspiciatis repudiandae quaerat labore veritatis
+      beatae quae voluptate, commodi asperiores nam deserunt suscipit architecto
+      soluta reprehenderit numquam minus est!
+    </p>
+
+    <!-- semantics
+       - section 
+       - nav
+       - header
+       - main
+       - footer
+    -->
+    <nav>
+      <a href="#aboutme">about me</a> | <a href="#education">education</a> |
+      <a href="#aboutProjects">Projects</a> | <a href="#hobbies"> Hobbies</a> |
+    </nav>
+    <main>
+      <header>
+        <h1 id="aboutme" class="aboutmePage">About me</h1>
+        <p>
+          My name is <strong> Prajwal</strong> Learning <em> MERN</em> stack
+        </p>
+        <img
+          src="https://m.media-amazon.com/images/I/51rayl0HnRL._UF894,1000_QL80_.jpg"
+          height="450px"
+          width="350px"
+          alt="This is image"
+        />
+      </header>
+      <hr />
+      <section id="education">
+        <h2 class="education">My Education</h2>
+        <div>
+          <h3 id="bachelorEducation">Bachelors</h3>
+          <p>I've done my bachelors in Engineering from JSPM</p>
+        </div>
+        <div>
+          <h3 id="higher-education">Higher Secondary</h3>
+          <p>Sarosh junior College,Aurangabad</p>
+        </div>
+      </section>
+      <hr />
+      <section id="hobbies">
+        <h2>Hobbies</h2>
+        <p>playing cricket</p>
+        <p>playing pubg</p>
+      </section>
+      <hr />
+      <section>
+        <h2 id="aboutProjects">Projects</h2>
+        <a href="https://www.google.com" target="_blank">Google</a>
+        <!-- target blank for a new tab -->
+      </section>
+      <hr />
+      <p>
+        Contact Us -
+        <a href="mailto:prajwal3274@gmail.com">Prajwal3274@gmail.com</a>
+      </p>
+      <section id="list">
+        <ul></ul>
+      </section>
+    </main>
+  </body>
+</html>
