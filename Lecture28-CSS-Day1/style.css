@@ -1,0 +1,63 @@
+/* universal selector : changes the properties for every element*/
+*{ 
+    color: green;
+}
+
+/* syntax
+selector{
+ property:value;
+}
+*/
+
+/* element selector : tag name */
+h1{
+    color: rgb(12, 255, 155);
+}
+p{
+    /* rgba a-alpha which helps settong the transparency */
+    color: rgba(22, 24, 21, 0.33);
+    font-size: 20px;
+    font-weight: 200;
+    text-align: justify;  /* left,right,center ,justify */
+    text-decoration: underline; /* line-through,underline,overline */
+    line-height: 50px;
+}
+
+h2{
+    /* hex code: #rrggbb */
+    color: #000000;
+}
+a{
+    text-decoration: none;
+    text-transform: uppercase; /* captialize,uppercase & lowercase */   
+}
+
+#para{
+    color: #000000;
+    background-color: yellow;
+    padding: 50px 100px ;  /* top and bottom 50px and left,right -> 100px */
+    /* padding: 50px;           all sides paddiong 50px
+    padding : top right bottom left. 
+    padding: 50px 100px 100px 120px*/ 
+    border:2px solid black;
+    line-height: 1.5rem;
+    
+}
+/* units in css 
+px  - fixed pixels
+%   - percentage of parent element
+em  - realtive to parent's font size 
+rem - relative to root's font size
+vh/vw - relative to viewport(screen) height/width
+*/
+
+
+/* display properties 
+ -inline : only as wide as text length,cannot set height and width
+ -block : takes full width ,starts on new line
+ -inline-block :  behaves like inline and we can set height and width
+*/
+
+
+
+
