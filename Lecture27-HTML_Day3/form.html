@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML-Forms</title>
+  </head>
+  <body>
+    <form novalidate>
+      <div>
+        <label for="name">Name</label>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          placeholder="enter full name"
+          required
+          autocomplete="name"
+        />
+      </div>
+
+      <div>
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="enter your email"
+          required
+          autocomplete="email"
+          name="email"
+        />
+      </div>
+
+      <div>
+        <label for="phone">Phone Number</label>
+        <input
+          id="phone"
+          type="number"
+          name="phoneNumber"
+          placeholder="enter phone number "
+          required
+          autocomplete="tel"
+        />
+      </div>
+
+      <div>
+        <label for="birth-date">Birth Date</label>
+        <input type="date" name="birth-date" id="birth-date" />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="name"
+          placeholder="atleast 6 digits"
+          type="password"
+        />
+      </div>
+
+      <div>
+        <label for="file">Upload Documents</label>
+        <input type="file" />
+      </div>
+
+      <div>
+        <input type="checkbox" name="checkbox" id="checkbox" required />
+        <label for="checkbox">Terms & Conditions</label>
+      </div>
+      <div>
+        <label for="radio">Radio btns</label>
+        <input type="radio" />
+      </div>
+      <div>
+        <label for="country">Country</label>
+        <select name="country" id="country">
+          <option value="">Select a country</option>
+          <option value="india">India</option>
+          <option value="US">US</option>
+          <option value="france">France</option>
+          <option value="china">China</option>
+        </select>
+
+        <label for="cities">Cities</label>
+        <select name="cities" id="cities" multiple required>
+          <option value="">Select cities</option>
+          <option>Pune</option>
+          <option>Delhi</option>
+          <option>Raipur</option>
+          <option>Gondia</option>
+        </select>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+
+    <div>
+      <h2>list o fruits</h2>
+      <p id="mango" data-product-id="abc1" data-product-value="10">
+        Mango - <span>10</span>
+      </p>
+      <p id="apple">Apple - <span>40</span></p>
+      <p id="banana">Banana - <span>20</span></p>
+    </div>
+    <script>
+        const mango = document.getElementById("mango")
+        console.log(mango.dataset.productId);
+        console.log(mango.dataset);
+        mango.dataset.productId="abcd1";
+        console.log(mango.dataset.productId);
+        console.log(mango.setAtrribute("productId","abc123"));
+        
+        
+    </script>
+  </body>
+</html>
