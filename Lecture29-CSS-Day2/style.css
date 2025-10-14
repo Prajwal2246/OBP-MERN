@@ -1,0 +1,51 @@
+:root {
+  /* specificity  is higher, it is  same as const in js*/
+  --btn-color: blue;
+  --bg-color: rgba(242, 242, 242, 0.91);
+  --default-color: green;
+}
+* {
+  box-sizing: border-box;
+}
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.navbar a {
+  margin: 10px 30px;
+  text-decoration: none;
+  font-size: 1.5rem;
+  color: green;
+}
+.gallery {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: start;
+  gap: 10px;
+  background-color: var(--bg-color); /* using varibale  */
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  flex: 1 1 350px; /* flex grow ,flex shrink,min-size(width) */
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.54);
+  /* horizontal offset : +ve ->right, -ve -> left
+  ,  vertical  offset  : +ve ->bottom -ve -> top 
+  ,  blur
+  , color 
+   */
+}
+.card img {
+  width: 50%;
+  height: 100%;
+  border-radius: 50%;
+  padding: 2px 2px;
+  box-shadow: 13px 13px 15px rgba(239, 56, 56, 0.57);
+}
