@@ -1,0 +1,46 @@
+body {
+  box-sizing: border-box;
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+/* display:grid used for 2d layout */
+.grid {
+  width: 60vw;
+  height: 70vh;
+  border: 1px solid aquamarine;
+  display: grid;
+  /* grid-template-columns: 50% 20%; */
+  /* grid-template-rows:120px 120px 50px ; */
+  /* grid-template-columns: 30% 30% 30%;  ===. grid-template-columns: repeat(3,30%);*/
+  /* grid-template-columns: minmax(100px , 200px) 300px ; */
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 4fr 1fr;
+}
+
+.red {
+  background-color: red;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+.blue {
+  background-color: blue;
+}
+.green {
+  background-color: green;
+}
+.pink {
+  background-color: pink;
+}
+.brown {
+  background-color: brown;
+}
+.orange {
+  background-color: orange;
+}
+
+/*. hw
+ align self and align content 
+*/
