@@ -1,0 +1,96 @@
+ *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+/*
+div > div{
+    height: 400px;
+    width: 300px;
+    background-color: yellow;
+    margin: 100px auto;
+}
+
+div>div:first-child{
+    background-color: red;
+}
+
+div>div:last-child{
+    background-color: blueviolet;
+}
+
+.child:nth-child(odd){
+    background-color: purple;
+}
+
+.child:first-of-type{
+    border: 10px solid red;
+}
+
+.child:active{
+    background-color: aqua;
+}
+.child:hover{
+    background-color: black;
+}
+
+.psuedo  p::before{
+    content: "prajwal";
+    color:red;
+}
+
+.psuedo p::after{
+    content: "";
+    color: black;
+}
+
+.psuedo p::first-letter{
+    content:"";
+    color: green;
+}
+
+.psuedo p::first-line{
+    content: "";
+    color: dark;
+} */
+
+div{
+    text-align: center;
+}
+ 
+div > div{ /* direct child */
+  display: inline-block;
+  height: 300px;
+  width: 400px;
+  background-color: yellow;
+}
+
+.linear div:nth-of-type(1){
+    background: linear-gradient(red,blue);
+}
+.linear div:nth-of-type(2){
+    background: linear-gradient(to right ,red,blue);
+}
+
+.linear div:nth-of-type(3){
+    background: linear-gradient(red 7%,blue 78%,black 98%);
+}
+.radial div:nth-of-type(1){
+    background: radial-gradient(red,blue,green);
+}
+.radial div:nth-of-type(2){
+    background: radial-gradient(closest-side,red,blue,green);
+}
+.radial div:nth-of-type(3){
+    background: radial-gradient(farthest-side,red,blue,green);
+}
+
+.conic div:nth-of-type(1){
+    background: conic-gradient(red,orange,blue,yellow);
+}
+.conic div:nth-of-type(2){
+    background: conic-gradient(from 1.5rad,red,orange,blue,yellow);
+}
+.conic div:nth-of-type(3){
+    background: conic-gradient(from 1.5rad at 10% 20%,red,orange,blue,yellow);  /* rad -degree 10% left right 20% top bottom */
+}

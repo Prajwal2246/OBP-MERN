@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+div > div {
+  width: 300px;
+  height: 400px;
+  background-color: yellow;
+  margin: 100px auto;
+}
+div > div:first-child {
+  background-color: red;
+}
+
+div > div:last-child {
+  background-color: blue;
+}
+
+.child:active{
+    background-color: black;
+}
+
+.child:hover{
+    background-color: aqua;
+}
+
+.psuedo-elements p::before{
+     content: "Prajwal";
+}
+.psuedo-elements p::first-letter{
+    content: "";
+    color:red;
+}
+.psuedo-elements p::first-line{
+    content: "";
+    color: blue;
+}

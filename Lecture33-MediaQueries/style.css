@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.all {
+  display: grid;
+  height: 100vh;
+  width: 100vw;
+  grid-template-rows: 1fr 2fr 2fr;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: aqua;
+  box-shadow: 1px 3px 1px rgba(69, 69, 69, 0.255);
+}
+header a {
+  font-size: 1.5rem;
+  position: relative;
+  right: 12px;
+  text-decoration: none;
+}
+header .options {
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+}
+
+.login-signup button {
+  padding: 12px;
+  font-size: 1.25rem;
+  border: none;
+  border-radius: 5px;
+}
+
+main {
+  height: 100%;
+  width: 100%;
+  padding: 12px;
+}
+
+.main-body {
+  border: 3px solid black;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 12px;
+  padding-left: 29px;
+  background-color: rgb(207, 240, 240);
+}
+.main-body h1 {
+  margin: 12px 0;
+}
+.main-body p {
+  margin: 12px 0;
+}
+.main-body img {
+  width: 580px;
+}
+
+footer {
+  background-color: black;
+  color: white;
+  align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+footer ul {
+  list-style: none;
+}
+
+@media screen and (min-width: 700px) {
+  footer {
+    background-color: red;
+  }
+}
+@media screen and (width <= 425px) {
+  footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .main-body {
+    display: flex;
+    flex-direction: column;
+
+  }
+  .main-body img{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+  }
+  .main-body h1, p{
+    font-size: 12px;
+  }
+  header {
+    display: flex;
+    flex-direction: column;
+  }
+  .options {
+    display: flex;
+    flex-direction: column;
+  }
+  header a {
+    display: flex;
+    justify-content: center;
+  }
+  .login-signup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  footer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  footer div{
+    width: 50%;
+    margin-bottom: 12px;
+  }
+  
+}
