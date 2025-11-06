@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet the Team Section</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <section class="team-section">
+        <div class="team-intro">
+            <div>
+                <p class="subheading">Our team</p>
+                <h2>Meet the brain</h2>
+                <p class="description">
+                    We are proud to have them as part of our community and look 
+                    forward to continuing to push the boundaries of what's possible 
+                    in the world of digital art.
+                </p>
+            </div>
+            <a href="#" class="see-all">See all members &rarr;</a>
+        </div>
+        
+        <div class="team-grid">
+            <div class="team-member-card" id="liam">
+                <div class="member-info">
+                    <h3>Liam Novak</h3>
+                    <p>Software Engineer</p>
+                </div>
+            </div>
+            <div class="team-member-card" id="sophia">
+                <div class="member-info">
+                    <h3>Sophia Moretti</h3>
+                    <p>Business Development Manager</p>
+                </div>
+            </div>
+            <div class="team-member-card" id="ethan">
+                <div class="member-info">
+                    <h3>Ethan Rossi</h3>
+                    <p>Business Development Manager</p>
+                </div>
+            </div>
+            <div class="team-member-card" id="isabella">
+                <div class="member-info">
+                    <h3>Isabella Ricci</h3>
+                    <p>UX Designer</p>
+                </div>
+            </div>
+            <div class="team-member-card" id="noah">
+                <div class="member-info">
+                    <h3>Noah Conti</h3>
+                    <p>Content Creator</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
+
+
+/* --- Basic Setup --- */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* --- Main Section Wrapper --- */
+.team-section {
+    display: flex;
+    width: 100%;
+    max-width: 1300px;
+    background-color: #ffffff;
+    border-radius: 24px;
+    padding: 4rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* --- Decorative Background Shape --- */
+.team-section::before {
+    content: "";
+    position: absolute;
+    top: -150px;
+    left: -200px;
+    width: 500px;
+    height: 70%;
+    border: 1px solid #eef0f2;
+    border-radius: 45% 55% 60% 40% / 45% 45% 55% 55%;
+    transform: rotate(-30deg);
+    z-index: 0;
+}
+
+/* --- Left Side: Intro Text --- */
+.team-intro {
+    flex: 1;
+    padding-right: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+.team-intro .subheading {
+    color: #4a43ec; /* Blue text from image */
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.team-intro h2 {
+    font-size: 2.75rem;
+    color: #111;
+    margin: 0.5rem 0 1rem 0;
+    font-weight: 700;
+}
+
+.team-intro .description {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: auto; /* Pushes 'see all' to the bottom */
+}
+
+.team-intro .see-all {
+    color: #111;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 2rem;
+    transition: color 0.3s ease;
+}
+
+.team-intro .see-all:hover {
+    color: #4a43ec;
+}
+
+/* --- Right Side: Team Grid --- */
+.team-grid {
+    flex: 2;
+    display: grid;
+    /* 5-column layout to create the complex spans */
+    grid-template-columns: repeat(5, 1fr);
+    /* 2 rows with a specific height */
+    grid-template-rows: 250px 250px;
+    gap: 1.25rem;
+    z-index: 1;
+}
+
+/* --- Individual Team Member Card --- */
+.team-member-card {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    color: white;
+    
+    /* This is the magic:
+      1. A linear-gradient provides the dark shadow at the bottom.
+      2. The 'var(--bg-image)' is the person's photo.
+      3. The 'var(--bg-color)' is the tint.
+      4. 'background-blend-mode: multiply' tints the photo with the color.
+    */
+    background-image: linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 60%), var(--bg-image);
+    background-color: var(--bg-color);
+    background-blend-mode: multiply;
+    transition: transform 0.3s ease;
+}
+
+.team-member-card:hover {
+    transform: translateY(-5px);
+}
+
+.member-info {
+    position: relative;
+    z-index: 2;
+}
+
+.member-info h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.member-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* --- Grid Placement & Specific Styles --- */
+
+#liam {
+    grid-column: 1 / 3; /* Spans 2 columns */
+    --bg-image: url('https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    --bg-color: #b0b0b0; /* Neutral Gray */
+}
+#sophia {
+    grid-column: 3 / 6; /* Spans 3 columns */
+    --bg-image: url('https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    --bg-color: #e0b0ff; /* Pinkish-purple */
+}
+#ethan {
+    grid-column: 1 / 3; /* Spans 2 columns */
+    --bg-image: url('https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    --bg-color: #89cff0; /* Sky blue */
+}
+#isabella {
+    grid-column: 3 / 4; /* Spans 1 column */
+    --bg-image: url('https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    --bg-color: #f3d19c; /* Peachy */
+}
+#noah {
+    grid-column: 4 / 6; /* Spans 2 columns */
+    --bg-image: url('https://images.pexels.com/photos/842980/pexels-photo-842980.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+    --bg-color: #8ee3c0; /* Teal/mint */
+}
+
+
+/* --- Responsive Design --- */
+@media (max-width: 1100px) {
+    .team-section {
+        flex-direction: column;
+        padding: 2rem;
+    }
+    .team-intro {
+        padding-right: 0;
+        margin-bottom: 2.5rem;
+    }
+    .team-grid {
+        /* Switch to a simpler 2-column grid */
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto; /* Auto height */
+    }
+    
+    /* Reset all custom spans to flow naturally */
+    #liam, #sophia, #ethan, #isabella, #noah {
+        grid-column: auto;
+        height: 300px; 
+    }
+}
+
+@media (max-width: 600px) {
+    .team-grid {
+        /* Stack to a single column */
+        grid-template-columns: 1fr;
+    }
+    .team-intro h2 {
+        font-size: 2.25rem;
+    }
+}
