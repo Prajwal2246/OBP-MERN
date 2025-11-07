@@ -1,0 +1,52 @@
+*,
+*::after *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 100px;
+}
+
+.container .box {
+  width: 120px;
+  height:120px;
+  margin-left: 50px;
+  background-color: aqua;
+}
+
+body:hover .box {
+
+  /* transform: scale(1.2); 1.2 times */
+  /* transform: scale(0.4); 0.4 times */
+  /* transform: scale(1.2 , 1.2) ; scales x and y */
+  /* transform: scaleX(2); scales x axis */
+  /* transform: scaleY(2); scales y axis*/
+  /* transform: scale(-1.2); scales 1.2 times but in reverse */
+
+  /* transform: rotate(45deg); */
+  /* transform: rotate(-45deg); rotates anticlockwise */
+  /* transform: rotate(1.5turn); turn 1.5 turns   1turn=360degree*/
+  /* transform: rotate(-0.5turn); turns reverse 0.5turn  */
+
+  /* transform: skew(-45deg); */
+  /* transform: skew(45deg); */
+  transform: skew(5deg,20deg);
+
+  transform: translate(100%);
+  transform: translate(400px);
+  
+  /* note: X,Y.  values diye hai
+  agar X me -ve value hai to left 
+  agar X me +ve ->>>>. right
+  agar Y me +ve value hai to down
+  agar Y me -ve value hai to up
+  */
+
+  /* transform: translate(200px) rotate(90deg); 
+  here ffirst move 200px by width and then rotate 90deg so the vertical becomes x axis after rotation
+   */
+   transform: rotate(90deg) translate(200px);
+   /* firstly it rotates so xaxis becomes vertical and then in moves downward by 200px */
+}

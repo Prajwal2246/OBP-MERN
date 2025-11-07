@@ -1,0 +1,50 @@
+*,
+*::after *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 100px;
+}
+
+.container .box {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 50px;
+  background-color: aqua;
+}
+
+body:hover .box {
+  width: 500px;
+  background-color: red;
+}
+.transition {
+  /* transition-property: width;
+  transition-duration: 2s;
+  transition-delay: 1s; */
+  transition: width 2s 1s ease-in, background-color 1s 2s ease-in-out;
+}
+
+.linear {
+  /* transition-timing-function: linear; */
+}
+.ease-in {
+  transition-timing-function: ease-in;
+}
+.ease-out {
+  transition-timing-function: ease-out;
+}
+.ease-in-out {
+  transition-timing-function: ease-in-out;
+}
+.step-start {
+  transition-timing-function: step-start;
+}
+.step-end {
+  transition-timing-function: step-end;
+}
+.steps {
+  transition-timing-function: steps(5);
+}

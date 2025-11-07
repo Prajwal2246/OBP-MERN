@@ -1,0 +1,31 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  height: 100vh;
+}
+.container {
+  height: 100vh;
+  background-image: url("https://imgs.search.brave.com/CJn5svh3VkSUfSgndSdpCcqTZ1bQ6BW6bakqGETvmIA/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM1/NjMzMzg2OS9waG90/by9hLXZpZXctb2Yt/cGluay1jbG91ZHMt/YWdhaW5zdC1hLWJs/dWUtc2t5LWF0LXN1/bnNldC1zdG9jay1w/aG90by5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9OFNMejlQ/WkRYMTB0Nll4cVc2/VkFGcDN1RzVOenhS/c0dNS1IxUVhVbW0w/Zz0");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+img {
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  height: 100px;
+  width: 100px;
+}
+body:hover img {
+  bottom: 90%;
+  left: 95%;
+}
+
+.transition {
+  transition-property: all;
+  transition-duration: 2s;
+  transition-timing-function: cubic-bezier(1, -0.84, 0.19, 1.07);
+}
