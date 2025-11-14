@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="contactus.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form class="contact-us">
+        <div class="name">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter full name" />
+        </div>
+        <div class="mobile">
+          <label for="mobile">Mobile</label>
+          <input type="number" name="mobile" id="mobile" placeholder="+91 9999900000" />
+        </div>
+        <div class="gender">
+          <label for="gender">Gender:</label>
+          <input type="radio" name="gender" id="male" value="male" />
+          <label for="male">Male</label>
+          <input type="radio" name="gender" id="female" value="female"/>
+          <label for="female">Female</label>
+        </div>
+        <div class="consent">
+          <input type="checkbox" id="consent" />
+          <label for="consent">Agree to terms and conditions</label>
+        </div>
+        <div class="city">
+          <select id="city">
+            <option value="">Select the city</option>
+            <option value="P">Pune</option>
+            <option value="H">Haryana</option>
+            <option value="D">Delhi</option>
+            <option value="N">Noida</option>
+          </select>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <script src="contactusForm.js"></script>
+  </body>
+</html>

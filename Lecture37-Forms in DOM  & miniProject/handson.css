@@ -1,0 +1,14 @@
+.outer {
+  border: 1px solid black;
+  width: 80%;
+}
+.inner {
+  border: 1px solid black;
+  width: 60%;
+  margin: 20px auto;
+}
+h1 {
+  border: 1px solid black;
+  width: 40%;
+  margin: 20px auto;
+}
