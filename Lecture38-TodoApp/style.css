@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(135deg, #ffe259, #ffa751);
+  height: 100vh;
+  font-family: sans-serif;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+.input-box {
+  display: flex;
+  gap: 15px;
+  width: 70%;
+  max-width: 650px;
+}
+
+.input-box input {
+  flex: 1;
+  padding: 20px 25px;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 14px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 20px rgba(255, 140, 0, 0.3);
+  transition: 1s ease-in-out;
+}
+.input-box button {
+  padding: 20px;
+  width: 120px;
+  border: none;
+  border-radius: 14px;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #00c853;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4);
+  transition: 0.2s ease-in-out;
+}
+.input-box input:focus {
+  box-shadow: 0 4px 30px rgba(255, 100, 0, 0.5);
+}
+
+.input-box button {
+  padding: 25px;
+  border: 1px solid black;
+  width: 8vw;
+  border-radius: 14px;
+  font-family: sans-serif;
+  font-size: larger;
+  font-weight: bold;
+  background: lawngreen;
+}
+.input-box button:hover {
+  background: #00e676;
+  transform: scale(1.05);
+}
+
+.input-box button:active {
+  transform: scale(0.98);
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 900;
+  color: #222;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+}
+
