@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 120px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="password" />
+      <br />
+      <input type="text" />
+      <br />
+      <input type="time" />
+      <br />
+      <input type="date" />
+      <br />
+      <input type="checkbox" />
+      <input type="checkbox" />
+      <input type="checkbox" />
+      <input type="checkbox" />
+      <br />
+      <input name="mcq" type="radio" value="optionA" />
+      <input name="mcq" type="radio" value="optionB" />
+      <input name="mcq" type="radio" value="optionC" />
+      <input name="mcq" type="radio" value="optionD" />
+      <br />
+      <input name="mcq2" type="radio" value="optionA" />
+      <input name="mcq2" type="radio" value="optionB" />
+      <input name="mcq2" type="radio" value="optionC" />
+      <input name="mcq2" type="radio" value="optionD" />
+      <br />
+      <select>
+        <option>Select option</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+        <option>D</option>
+      </select>
+      <br />
+      <select multiple>
+        <option>multiple option</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+        <option>D</option>
+      </select>
+      <br />
+      <input type="file" />
+      <br />
+      <button>Submit</button>
+    </div>
+    <script>
+      const submitBtn = document.querySelector("button");
+      let obj = {};
+      submitBtn.addEventListener("click", () => {
+        const checkedBoxes = document.querySelectorAll(
+          "[type=checkbox]:checked"
+        );
+        obj.checkedBoxes = checkedBoxes;
+
+        obj.password = document.querySelector("[type=password]").value;
+        obj.text = document.querySelector("[type=text]").value;
+
+        const time = document.querySelector("[type='time']");
+        obj.time = time.value;
+
+        obj.date = new Date(document.querySelector("[type=date]").value);
+
+        // obj.radiobtns1 = document.querySelector("[name=mcq]:checked").value;
+        // obj.radiobtns2 = document.querySelector("[name=mcq2]:checked").value;
+
+        obj.singleSelectOption = document.querySelector(
+          "select:not([multiple])"
+        ).value;
+
+        let options = document.querySelector("select[multiple]");
+        obj.selecMulti = Array.from(options.selectedOptions).map(
+          (opt) => opt.value
+        );
+
+        const file = document.querySelector("input[type=file]").files;
+
+        console.log(obj);
+      });
+      //blur event -> works when out of focus first time then stays same
+      const pass = document.querySelector("input[type=password]");
+      pass.addEventListener("blur", (e) => {
+        e.target.style.background = "red";
+      });
+      //focus event -> works on focus
+      pass.addEventListener("focus",(e)=>{
+        e.target.style.background="yellow";
+      })
+      //input event-> when we type valid types
+      pass.addEventListener("input",(e)=>{
+        console.log(e.target.value);
+      })
+      //change event-> trigger when content change or elem goes out of focus
+      pass.addEventListener("change",(e)=>{
+        console.log(e.target.value);
+      });
+
+      
+    </script>
+  </body>
+</html>

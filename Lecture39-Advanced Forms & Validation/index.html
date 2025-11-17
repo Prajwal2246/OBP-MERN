@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forms Advanced</title>
+    <style>
+      body {
+        margin-top: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="password" id="" />
+    <br />
+    <input type="date" />
+    <br />
+    <input type="time" /> <br />
+    <input type="checkbox" />
+    <input type="checkbox" />
+    <input type="checkbox" />
+    <input type="checkbox" />
+    <br />
+    <input type="radio" />
+    <input type="radio" />
+    <input type="radio" />
+    <input  type="radio"/>
+    <br />
+    <input type="radio" /><input type="radio" /><input type="radio" /><input
+      type="radio"
+    />
+    <br />
+
+    <select name="" id="">
+      <option>Select Option</option>
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+    </select>
+    <br />
+    <select name="" id="" multiple="true" size="2">
+      <option value="">multiple Option</option>
+      <option>A</option>
+      <option>B</option>
+      <option>C</option>
+      <option>D</option>
+    </select>
+    <br />
+    <input type="file" />
+    <br />
+    <button>Submit</button>
+    <script>
+      const obj = {};
+
+      const submitBtn = document.querySelector("button");
+      submitBtn.addEventListener("click", () => {
+        const selectedCheckboxes = document.querySelectorAll(
+          "input[type='checkbox']:checked"
+        );
+        const password = document.querySelector("input[type=password]").value;
+        let date = document.querySelector("input[type=date]");
+        date = new Date(date.value);
+        const time = document.querySelector("input[type=time]");
+
+        obj.checkboxes = selectedCheckboxes;
+        obj.password = password;
+        obj.date = date;
+        obj.time = time.value;
+
+        let options = document.querySelector("[multiple=true]"); //sirf first selected ayega
+        let ans = [];
+        // for(let i of options){
+        //     if(i.selected==true){
+        //         ans.push(i.value);
+        //     }
+        // }
+        // console.log(ans);
+
+        //using hofs
+        let allOptions = Array.from(options);
+        const filterArr = allOptions
+          .filter((opt) => opt.selected)
+          .map((ele) => ele.value);
+        // console.log(filterArr);
+        obj.multiSelect = filterArr;
+        const selectedopt = document.querySelector("select").value;
+        obj.selected = selectedopt;
+
+        //file
+        const file = document.querySelector("input[type=file]").files;
+        l;
+
+        console.log(file);
+
+        console.log(obj);
+      });
+      // hw:-  FileReader; dataURL,blur,focus events
+    </script>
+  </body>
+</html>
