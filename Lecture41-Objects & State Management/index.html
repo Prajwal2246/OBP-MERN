@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background: #f1f1f1;
+        font-family: Arial, sans-serif;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 24px;
+        padding: 40px;
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 24px 12px;
+        transition: box-shadow 0.3s;
+      }
+
+      .card:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      .title {
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+
+      .price {
+        color: #888;
+        font-size: 18px;
+        margin-bottom: 16px;
+      }
+
+      .card button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .card button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="gallery">
+      <button>Show all products</button>
+      <!-- <div class="card">
+        <div class="title">Product 1</div>
+        <div class="price">₹24.99</div>
+        <button>Add to Cart</button>
+      </div> -->
+    </div>
+
+    <script>
+      const products = [
+        {
+          title: "product 1",
+          price: 30,
+        },
+        {
+          title: "product 2",
+          price: 20,
+        },
+        {
+          title: "product 3",
+          price: 30,
+        },
+        {
+          title: "product 4",
+          price: 40,
+        },
+        {
+          title: "product 5",
+          price: 50,
+        },
+      ];
+
+      const gallery = document.querySelector(".gallery");
+      const showButton = gallery.querySelector("button");
+
+      showButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        showButton.style.display="none";
+        products.forEach((product) => {
+          const div = document.createElement("div");
+          div.classList.add("card");
+
+          div.innerHTML = `<div class="title">${product.title} </div>
+                        <div class="price">₹${product.price}</div>
+                      <button>Add to Cart</button>`;
+
+          gallery.appendChild(div);
+        });
+      });
+    </script>
+  </body>
+</html>

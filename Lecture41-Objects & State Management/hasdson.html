@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>handson</title>
+  </head>
+  <body>
+    <style>
+      body {
+        margin: 20px;
+      }
+    </style>
+
+    <div>
+      <h1>counter</h1>
+      <div class="counter">
+        <p>0</p>
+        <span>Level : 0</span>
+        <button id="increment">Increment</button>
+        <button id="decrement">decrement</button>
+    </div>
+    <br><hr><br>
+    <span>Select your theme</span>
+    <button id="dark">Dark</button>
+    <button id="light">Light</button>
+    </div>
+
+
+    <script>
+      const state={
+        theme:"dark",
+        level:0,
+      }
+      const counter={
+        //just like global
+        count:0,
+        level:0,
+
+        //all elements access
+        elements:{
+            incrementBtn:document.querySelector("#increment"),
+            decrementBtn:document.querySelector("#decrement"),
+            showLevel:document.querySelector("div>span"),
+            showCount:document.querySelector("p"),
+            darkmodeBtn:document.querySelector("#dark"),
+            lightModeBtn:document.querySelector("#light"),
+        },
+
+        //functions
+        updateLevel(newCount){
+            if(newCount>10){
+                this.level=3;
+            }else if(newCount>5){
+                this.level=2;
+            }else if(newCount>0){
+                this.level=1
+            }else{
+                this.level=0;
+            }
+            this.elements.showLevel.textContent="Level : "+this.level;
+            state.level=this.level;
+        },
+
+        showCount(newCount){
+            this.elements.showCount.textContent=newCount;
+            this.updateLevel(newCount);
+        },
+        //events
+        events(){
+            //increase count
+            this.elements.incrementBtn.addEventListener("click",(e)=>{
+                e.preventDefault();
+                this.count++;
+                this.showCount(this.count);
+            })
+
+            this.elements.decrementBtn.addEventListener("click",(e)=>{
+                e.preventDefault();
+                this.count--;
+                this.showCount(this.count);
+            })
+
+            this.elements.darkmodeBtn.addEventListener("click",(e)=>{
+                e.preventDefault();
+                document.body.style.backgroundColor="black";
+                document.body.style.color="white";
+                state.theme="black"
+
+            })
+            this.elements.lightModeBtn.addEventListener("click",(e)=>{
+                e.preventDefault();
+                document.body.style.backgroundColor="white";
+                document.body.style.color="black";
+                state.theme="white"
+            })
+            
+        }
+
+      }
+
+      counter.events(); //functionality working
+    </script>
+  </body>
+</html>

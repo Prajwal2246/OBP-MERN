@@ -1,0 +1,118 @@
+
+<!-- note:
+ agar apn ek obj ke andr ek function bnate hai 
+ aur normally use call krte hai 
+ tb this vo obj ka hota hai
+ lekin ----------------------------------------
+ agar apn kiti btn pr eventlistener lagake use function
+ ki reference pass krte hai
+ tb vo [this] vo obj ka nh btn ka ho jata hai
+ ------------
+ we can handle this using anonymous function 
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      body {
+        margin: 20px;
+      }
+    </style>
+
+    <div>
+      <h1>Counter</h1>
+      <div class="counter">
+        <p>0</p>
+        <span>Level : 0</span>
+        <button id="incr-btn">increase</button>
+        <button id="decr-btn">decrease</button>
+      </div>
+      <br>
+      <hr>
+      <br>
+      <span>Select your theme</span>
+      <button id="dark">Dark</button>
+      <button id="light">Light</button>
+    </div>
+
+    <script>
+        const state={
+            theme:"dark",
+            level:0
+        }
+
+      const counter = {
+        count: 0,
+        level:0,
+
+        elements: {
+          increaseBtn: document.querySelector("#incr-btn"),
+          decreaseBtn: document.querySelector("#decr-btn"),
+          showCount: document.querySelector("p"),
+          darkModeBtn:document.querySelector("#dark"),
+          lightModeBtn:document.querySelector("#light"),
+          showLevel : document.querySelector("div > span"),
+        },
+
+        updateLevel(newLevel){
+            if(newLevel>10){
+                this.level=3;
+            }else if(newLevel>5){
+                this.level=2;
+            }else if(newLevel>0){
+                this.level=1;
+            }else{
+                this.level=0
+            }
+            this.elements.showLevel.textContent="Level : "+ this.level;
+            state.level=this.level;
+        },
+
+        updateCount(newCount) {
+          this.elements.showCount.textContent = this.count;
+          this.updateLevel(newCount);
+        },
+
+        event() {
+          this.elements.increaseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.count++;
+            this.updateCount(this.count);
+          });
+
+          this.elements.decreaseBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.count--;
+            this.updateCount(this.count);
+            // this.elements.showCount.textContent = this.count;
+          });
+ 
+          this.elements.darkModeBtn.addEventListener("click",(e)=>{
+            e.preventDefault();
+
+            document.body.style.backgroundColor="black",
+            document.body.style.color="white"
+            state.theme="dark";
+          })
+          this.elements.lightModeBtn.addEventListener("click",(e)=>{
+            e.preventDefault();
+
+            document.body.style.backgroundColor="white",
+            document.body.style.color="black"
+            state.theme="light";
+          })
+        },
+      };
+      counter.event();
+    </script>
+  </body>
+</html>
+
+
+
