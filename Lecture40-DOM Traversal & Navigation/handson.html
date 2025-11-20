@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM traversal</title>
+  </head>
+  <body>
+    <div class="great-grand-parent">
+      <div class="grand-parent">
+        <div class="parent">
+          <div class="child">CHild</div>
+        </div>
+      </div>
+    </div>
+    <div class="parent2">
+      <div class="child1">child1</div>
+      <div class="child2">child2</div>
+      <div class="child3">child3</div>
+      <div class="child4">child4</div>
+      <div class="child5">child5</div>
+    </div>
+
+    <div class="card">
+      <div class="img">
+        <img src="" alt="img" />
+      </div>
+      <div class="content">
+        <p class="title">shoes</p>
+        <div class="buttons">
+          <button class="delete">delete</button>
+          <button class="edit">edit</button>
+        </div>
+      </div>
+    </div>
+
+    <table border="1" id="demoTable">
+      <tr>
+        <th>thead1</th>
+        <th>thead2</th>
+        <th>thead3</th>
+      </tr>
+      <tr>
+        <td id="targetCell">js basics</td>
+        <td>dom</td>
+        <td>react</td>
+      </tr>
+      <tr>
+        <td>hooks</td>
+        <td>props</td>
+        <td>context</td>
+      </tr>
+    </table>
+
+    <script>
+      //1.parentElement
+      console.log(document.querySelector(".parent").parentElement);
+
+      //getting parent of body which is html
+      console.log(document.body.parentElement); //html
+
+      //html ka parent -> null
+      console.log(document.body.parentElement.parentElement); //null
+
+      /*  2.closest - searches upward from the current node through its ancestors  
+            (up to the root) until it finds an element that matches the selector.
+        */
+      const child = document.querySelector(".child");
+      console.log(child.closest("div")); //itself is div so it returns itself
+
+      /* find elem of .child div whose parent is body and add classa accio to it */
+      let ele = child;
+      while (ele.parentElement != document.body) {
+        ele = ele.parentElement;
+      }
+      ele.classList.add("accio");
+      console.log(ele);
+
+      /* 3.TagName */
+      console.log(ele.tagName, ele.parentElement.tagName);
+
+      /* 4.children vs childNodes */
+      const parent2 = document.querySelector(".parent2");
+      console.log(parent2.childNodes);
+      console.log(parent2.children);
+
+      //adding class accio to first child of body
+      const bodyFirstChild = document.body.children[0];
+      bodyFirstChild.classList.add("accio");
+      console.log(bodyFirstChild);
+
+      /* 5.firstElementChild  lastElementChild */
+      console.log(parent2.firstElementChild);
+      console.log(parent2.lastElementChild);
+      console.log(parent2.children[1]);
+
+      //iterating thorough all children
+      for (let childs of parent2.children) {
+        console.log(childs.className);
+      }
+
+      /* 6.sibling-> 
+        nextSibling,prevSibling -> consider white/empty spaces as text node
+        nextElementSibling,previousElementSibling -> 
+         */
+      console.log(bodyFirstChild.nextSibling);
+      console.log(bodyFirstChild.previousSibling);
+      console.log(bodyFirstChild.nextElementSibling);
+      //   console.log(bodyFirstChild.children[1].previousElementSibling);
+
+      //print all sibling of secondchild
+      const secondChild = parent2.children[1];
+      console.log(
+        [...secondChild.parentElement.children].filter(
+          (sib) => sib != secondChild
+        )
+      );
+
+      const deleteBtn = document.querySelector(".delete");
+      deleteBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const div = deleteBtn.closest(".card");
+        div.remove();
+      });
+
+
+      //table- selecting one cell and adding class to it
+      const targetCell = document.querySelector("#targetCell");
+      targetCell.classList.add("newTable")
+      console.log(targetCell);
+
+      //table- childrens of target cell
+      console.log(targetCell.children);
+      console.log(targetCell.nextElementSibling); //dom
+      console.log(targetCell.previousElementSibling); //null
+      
+      //parentElement
+      console.log(targetCell.parentElement);
+      console.log(targetCell.parentElement.parentElement);
+
+      //closest
+      const table=targetCell.closest("#demoTable");
+      table.classList.add("accio");
+      console.log(table);
+      
+      
+      
+    </script>
+  </body>
+</html>

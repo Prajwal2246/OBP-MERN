@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOm Traversal & navigation</title>
+  </head>
+  <body>
+    <div class="great-grand-parent">
+      <div class="grand-parent">
+        <div class="parent">
+          <div class="child">Child</div>
+        </div>
+      </div>
+    </div>
+    <div class="parent2">
+      <div class="child1"></div>
+      <div class="child2"></div>
+      <div class="child3"></div>
+      <div class="child4"></div>
+      <div class="child5"></div>
+    </div>
+
+    <div class="card">
+      <div class="image">
+        <img src="" alt="img" />
+      </div>
+      <div class="content">
+        <p class="title">Shoes</p>
+        <div class="buttons">
+          <button class="delete">Delete</button>
+          <button class="Edit">Edit</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      console.log(Math.random()); //random number from [0-1)
+      //generating 6digit otp
+       console.log(Math.floor(100000 + Math.random()*900000));
+
+      
+      /* 1.parentElement */
+      //getting the parentElement of an element
+      const child = document.querySelector(".child");
+      console.log(child.parentElement);
+
+      const parent = document.querySelector(".parent");
+      console.log(parent.parentElement);
+
+      const grandParent = document.querySelector(".grand-parent");
+      console.log(grandParent.parentElement);
+
+      //getting the parent of body , which is html
+      console.log(document.body.parentElement);
+
+      //getting the parent of html, which is null
+      console.log(document.body.parentElement.parentElement);
+
+      /* 2.closest -> 
+         searches the selector from current node to all ancestors till root node
+      */
+      //   console.log(child.closest(".parent")); //here it gives div which has parent class which is closest
+      console.log(child.closest("div")); //this gives itself because it found div in itself
+
+      /* 3.finding the parent of .child  whose parent is body  and adding class"accio" to it*/
+      let ele = child;
+      while (ele.parentElement != document.body) {
+        ele = ele.parentElement;
+      }
+      //   ele.classList.add("accio");
+      console.log(ele);
+
+      /* 4.Tagname */
+      console.log(ele.tagName, ele.parentElement.tagName);
+
+      /* 5.children vs childNodes */
+      const parent2 = document.querySelector(".parent2");
+      console.log(parent2.childNodes); //know this so that understand why we should use children
+      console.log(parent2.children); // always prefer this
+
+      /* 6.firstElementChild, lastElementChild */
+      console.log(parent2.firstElementChild);
+      console.log(parent2.lastElementChild);
+      console.log(parent2.children[1]);
+
+      //adding class accio to first child of body
+      const bodyfirstChild = document.body.children[0];
+      bodyfirstChild.classList.add("accio");
+      console.log(bodyfirstChild);
+
+      //iterating through all the children
+      for (let child of parent2.children) {
+        console.log(child.className);
+      }
+
+      /* 7.siblings */
+      /* nextSibling,previousSibling  ->     considers white / empty spaces as text node
+         nextElementSibling ,previousElementSibling  */
+      console.log({
+        "body's first child nextsibling ": bodyfirstChild.nextSibling,
+      });
+      console.log({
+        "body's first child nextsibling classname":
+          bodyfirstChild.nextElementSibling.className,
+      });
+      console.log({
+        "body's first child prevsibling ": bodyfirstChild.previousSibling,
+      }); //text node
+      console.log({
+        "body's first child prevsibling ":
+          bodyfirstChild.previousElementSibling,
+      }); //null
+
+      //print all sibling of secondChild
+      const secondChild = parent2.children[1];
+      /* for(let sib of secondChild.parentElement.children){
+             if(sib != secondChild){
+               console.log(sib);
+             }
+           }
+        */
+      //using hofs
+      console.log(
+        [...secondChild.parentElement.children].filter(
+          (sib) => sib != secondChild
+        )
+      );
+
+      //activity delete btn->  should delete complete card div
+      const deleteBtn = document.querySelector(".delete");
+
+      deleteBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const div = deleteBtn.closest(".card"); //closest->ancestors
+        div.remove();
+      });
+    </script>
+  </body>
+</html>
+<!-- hw: try all properties of children parent,sibling,closest on table
+ (pick one cell and try to navigate from here) &
+ nested lists
+
+ 2.try to find the min and max value for otp -6digit
+-->
+
