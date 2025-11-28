@@ -185,7 +185,7 @@ class Bank {
   }
 
   checkBalance(userPin){
-    return userPin ==== this.#pin ? this.balance : "wrong pin";
+    return userPin === this.#pin ? this.balance : "wrong pin";
   }
 }
 

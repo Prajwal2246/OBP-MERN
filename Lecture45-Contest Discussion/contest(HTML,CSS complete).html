@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- question1: mistakes(wrong syntax- media query,grid-template-columns spelling mistake, forgot to write flex-wrap)
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .cards {
+        height: 100vh;
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+      }
+      .card {
+        border: 1px solid black;
+        width: 20%;
+        height: auto;
+        padding: 10px;
+      }
+
+      @media screen and (max-width: 600px) {
+        .cards {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          grid-template-rows: repeat(2, 1fr);
+        }
+
+        .card{
+          width: 100%;
+        }
+      }
+    </style>
+    <div class="cards">
+      <div class="card">
+        <h1>Box1</h1>
+        <img src="/image1.jpg" alt="image" />
+        <p>this is box 1</p>
+      </div>
+      <div class="card">
+        <h1>Box2</h1>
+        <img src="/image2.jpg" alt="image2" />
+        <p>this is box2</p>
+      </div>
+      <div class="card">
+        <h1>Box3</h1>
+        <img src="/image3.jpg" alt="image3" />
+        <p>this is box3</p>
+      </div>
+      <div class="card">
+        <h1>Box4</h1>
+        <img src="/image4.jpg" alt="image4" />
+        <p>this is box4</p>
+      </div>
+    </div>
+ -->
+    <!-- question2: mistakes( mediaquery syntax, anchor tag not have self closing,css properties with quotes not allowed,animation opacity values not in % they are in between 0 to 1)
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      header {
+        width: 100vw;
+        height: 40px;
+        display: flex;
+        justify-content: space-around;
+        position: fixed;
+        top: 0;
+      }
+      header a {
+        text-decoration: none;
+        color: black;
+      }
+
+      #hero {
+        height: 60vh;
+        width: 100vw;
+        background-color: #2b3f6a;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      #hero h1 {
+        animation-name: appearText;
+        animation-timing-function:ease-in;
+        animation-duration: 5s;
+      }
+
+      @keyframes appearText {
+        0% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @media (max-width<=600) {
+        header {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+    <header>
+      <a href="./home" />Home <a href="./about">About</a>
+      <a href="./contact">Contact</a>
+    </header>
+    <section id="hero">
+      <h1>AccioJob</h1>
+      <h3>This is the best organisation in the market for web dev.</h3>
+    </section>
+    -->
+    <!-- question3: mistakes(forgot to write s in transition-duration,written css in quotes,forgot to write transfrom in transition-property , )
+
+    <style>
+      #container {
+        height: 100vh;
+        width: 100vw;
+      }
+      button {
+        background-color: blue;
+        color: white; /*  mistake */
+        transition-property: background-color, transform; /* mistake */
+        transition-duration: 0.3s; /* mistake */
+        transition-timing-function: linear; /* mistake */
+      }
+      button:hover {
+        background-color: green;
+        transform: scale(1.2);
+      }
+
+      button,
+      #container:active {
+        transform: scale(0.95);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+
+    <div id="container">
+      <div id="add-to-cart-btn">
+        <button>Add to Cart</button>
+      </div>
+    </div>
+    -->
+  </body>
+</html>

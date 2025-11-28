@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="child">Child</div>
+    </div>
+
+    <!--  event propagation
+    capturing 
+     (going down)
+     (root to target)
+
+     target
+     (when we're @ the element that has triggered the event)
+
+     bubbling
+     (going up)
+     (from target to root)
+
+       -->
+
+    <script>
+      const parent = document.querySelector(".parent");
+      const child = document.querySelector(".child");
+
+      parent.addEventListener(
+        "click",
+        (event) => {
+          // event.stopPropagation();
+
+          //jisne event trigger kiya. --- aur ye sabse deepest elem hota hai
+          console.log("target", event.target); //target elem which trigger event
+          //jispe eventlistener laga hua hai vo currentTarget hai
+          console.log("target ", event.currentTarget); //eventlistener ko capture kiya vo target elem
+
+          console.log("parent is clicked");
+          console.log(this); //arrow function not have this it inherits using lexical scoping  - gives window object
+        },
+        { capture: true }
+      );
+      /* 
+      child.addEventListener(
+        "click",
+        (event) => {
+            // event.stopPropagation(); //event propagation rokta hai
+            event.stopImmediatePropagation();  //stops propagation of second event listener
+          console.log("child is clicked ");
+        },
+        { capture: true }
+      );
+      child.addEventListener(
+        "click",
+        (event) => {
+            // event.stopPropagation();
+          console.log("child is clicked twice");
+        },
+        { capture: true }
+      ); */
+
+      /* call apply bind  */
+      function greetMe(greetings) {
+        console.log(greetings + " " + this.name);
+      }
+
+      const person = {
+        name: "prajwal", // in greetMe function now bcoz of call this is person obj
+      };
+      //new this.   //arg
+      greetMe.call(person, "hello");
+      // greetMe.call(newThis, arg1, arg2, arg3...);
+
+      greetMe.apply(person, ["hello"]);
+      //same as call but arg as array
+      // greetMe.call(newThis, [arg1, arg2, arg3...]);
+
+      const greetPerson = greetMe.bind(person, "bye");
+      //person hamesha ke liye greetme ka this bn jaega
+      //returns a function
+      greetPerson(); //it will have this(Person)
+    </script>
+  </body>
+</html>
