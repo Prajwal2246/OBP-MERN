@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Storage and Persistence</title>
+  </head>
+  <body>
+    <!-- Problem??
+      1. ex todo me task hai
+        to vo task refresh krne pr gayab ho jata hai kyuki vo browser ke pass jo memory/ram hoti hai usme save hota hai
+        to jaise hi refresh krte hai vo memory delete ho jati hai to sab gaayab ho jata hai
+
+
+      -- solution
+      1.localstorge
+      2.SessionStorage
+      
+      1.localStorage(key,value)
+        ---i)key and value both are strings
+        --ii)origin : domain (www.google.com) and sub-domain (www.docs.google.com)
+        -iii) so in localstorage for each origin browser allocated 5-10mb storage
+        --iv) persists-> reload page,browser reopen,tab reopening
+        ---v) data deletes when  we use  removeItem and clear() and site cleardata
+
+        limitations:
+        i) large data cannot be store
+       ii) data limited to strings
+      iii) QuotaExceededError 
+       iv) setItem(write) is expensive task so it can create performance issues
+        v) security issues (sensitive info)
+
+      2.sessionStorage
+
+      -->
+
+
+      <div>localStorage and Persistence
+        <p>
+            localStorage
+            <ul>
+                <li>key ,value (strings)</li>
+                <li> origin : domain,subdomain </li>
+                <li>for each origin : 5-10mb space from browser</li>
+                <li>persists in reload page,browser reopen,tab reopen</li>
+                <li>data deletes when  we use  removeItem and clear() and site cleardata</li>
+                <li>limitations: i) large data cannot be store ii) data limited to strings iii) QuotaExceededError</li>
+            </ul>
+        </p>
+      </div>
+      <script>
+        let key ="abc";
+        let value="123";
+        let value2="def"
+
+        /* setitem */
+        // localStorage.setItem(key,value); 
+        // localStorage.setItem(key,value2);  //it will take latest value
+        /* removeitem */
+        // localStorage.removeItem(key);
+        /* getitem */
+        // console.log(localStorage.getItem(key));
+        /* clear  */
+        localStorage.clear(); 
+        /* length */
+        // console.log(localStorage.length)
+        /* .key -> persists insertion order */
+        // console.log(localStorage.key(2));
+
+        
+        localStorage.setItem("key1","value1")
+        localStorage.setItem("key2",value)
+        localStorage.setItem("key3",value2)
+        localStorage.setItem("key4",value)
+        localStorage.setItem("key55",value)
+
+        for(let i=0;i<localStorage.length;i++){
+            console.log(localStorage.key(i),localStorage.getItem(localStorage.key(i)));   
+        }
+        
+        /* has localstorage function */
+        function localStoragePresent(){
+            try {
+                if(localStorage.getItem("key1") === "value1" ){
+                 return true;
+                }
+               return false;
+            } catch (error) {
+                console.log(error);
+                
+            }
+            
+        }
+
+        console.log(localStoragePresent());
+
+        /* haslocalstorage */
+
+      </script>
+  </body>
+</html>

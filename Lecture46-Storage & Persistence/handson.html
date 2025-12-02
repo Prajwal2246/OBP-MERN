@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage</title>
+</head>
+<body>
+    <!-- LocalStorage -->
+     <h1>LocalStorage</h1>
+     <p>Problme??
+        <ul>
+            <li>no persists of data </li>
+            <li>data is in browsers memory/ram so when refresh it disappers and it deletes from memory</li>
+
+        </ul>
+     </p>
+     <p>solution
+        <ul>
+            <li>1.localstorage</li>
+            <li>2.sessionStorage</li>
+        </ul>
+     </p>
+     <p>LocalStorage
+        <ul>
+            <li>
+                key value pairs both in strings.
+            </li>
+            <li>origin : domain(www.google.com) and subdomain(www.docs.google.com) </li>
+            <li>for each origin browser allocates 5-10mb space</li>
+            <li>persists -> reload,reopen browser,tab reopen, </li>
+            <li>data deletes when we use removeItem and .clean() method</li>
+        </ul>
+        <ul>Limitaitions
+            <li>large data cannot be store</li>
+            <li>data limited to strings</li>
+            <li>QuotaExceededError</li>
+            <li>setItem(write) is expensive task so can give performance issue</li>
+            <li>security issues (personal / sensitive info)</li>
+        </ul>
+     </p>
+ <hr> <hr>
+ <script>
+ let key="pranay";
+ let value="1234";
+
+ localStorage.setItem(key,value);
+//  localStorage.removeItem("pranay");
+ console.log(localStorage.getItem("pranay"))
+//  localStorage.clear()
+console.log(localStorage.length);
+
+ 
+</script>
+</body>
+</html>
