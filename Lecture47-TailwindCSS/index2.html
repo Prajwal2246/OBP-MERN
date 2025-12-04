@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tailwind Final Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<!-- TODO: Set a light gray background and dark text for the whole site -->
+
+<body class="bg-grey-400 text-black">
+
+    <!-- NAVBAR -->
+    <nav class="flex gap-2 align-center justify-between p-2 bg-white shadow-sm">
+        <!-- TODO: Make navbar flex, spaced apart, centered vertically -->
+        <!-- TODO: Add padding, white background, and small shadow -->
+
+        <h1 class="text-2xl">
+            <!-- TODO: Make logo large and bold -->
+            BrandName
+        </h1>
+
+        <ul class=" md:flex space-x-2 ">
+            <!-- TODO: Hide menu on small screens, show on medium screens -->
+            <!-- TODO: Add horizontal gap -->
+            <!-- TODO: Add hover color change -->
+            <li class="hidden sm:inline">Home</li>
+            <li class="hidden sm:inline">Services</li>
+            <li class="hidden sm:inline">Pricing</li>
+            <li class="hidden sm:inline">Contact</li>
+        </ul>
+
+        <button class="lg:hidden">
+            <!-- TODO: Show this only on mobile screens -->
+            ☰
+        </button>
+    </nav>
+
+
+
+    <!-- HERO SECTION -->
+    <section class="sm:flex-col md:flex ">
+        <!-- TODO: On mobile → vertical; on desktop → horizontal -->
+        <!-- TODO: Add horizontal padding and vertical spacing -->
+
+        <div class="">
+            <!-- TODO: Make left side flexible, add vertical spacing -->
+            <h1 class="">
+                <!-- TODO: Make heading very large, bold, tight line height -->
+                Build Modern UIs with
+                <span class="">Tailwind CSS</span>
+                <!-- TODO: Make this span blue -->
+            </h1>
+
+            <p class="">
+                <!-- TODO: Medium text + gray color -->
+                Tailwind gives you the power to design beautiful, responsive UIs faster than ever.
+            </p>
+
+            <button class="">
+                <!-- TODO: Blue background, white text, padding, rounded, hover color change -->
+                Get Started
+            </button>
+        </div>
+
+        <div class="">
+            <!-- TODO: Add margin on mobile only -->
+            <!-- TODO: Center the image -->
+            <!-- TODO: Add shadow + rounded corners -->
+            <img src="https://cdn.dribbble.com/userupload/33009550/file/original-e6e4aee4318b0b2edeaf4fe37003901f.jpg?resize=400x0"
+                class="" />
+        </div>
+    </section>
+
+
+
+    <!-- SERVICES SECTION -->
+    <section class="p-2 text-center font-bold text-xl">
+        <!-- TODO: Add padding -->
+        <!-- TODO: Section heading center + bold + big -->
+        <h2 class="">Our Services</h2>
+
+        <div class="grid grid-cols-3 gap-4">
+            <!-- TODO: Create responsive grid (1 → 3 columns) -->
+            <!-- TODO: Add gap between cards -->
+
+            <!-- CARD 1 -->
+            <div class="shadow-xl  bg-white p-1 rounded  text-center space-y-4">
+                <!-- TODO: White background + padding + rounded + shadow + center text + vertical gap -->
+                <div class="text-4xl">⚡</div>
+                <!-- TODO: Large bold title -->
+                <h3 class="font-bold">Fast Development</h3>
+                <!-- TODO: Gray description -->
+                <p class="text-sm text-gray-500">Build interfaces at lightning speed with utility-first classes.</p>
+            </div>
+
+            <!-- CARD 2 SAME -->
+            <div class="shadow-xl bg-white p-1 rounded  text-center space-y-4">
+                <div class="text-4xl">🎨</div>
+                <h3 class="font-bold">Beautiful Design</h3>
+                <p class="text-sm text-gray-500">Consistent design system and modern UI building blocks.</p>
+            </div>
+
+            <!-- CARD 3 SAME -->
+            <div class="shadow-xl bg-white p-1 rounded  text-center space-y-4">
+                <div class="text-4xl">📱</div>
+                <h3 class="font-bold">Fully Responsive</h3>
+                <p class="text-sm text-gray-500">Responsive by default. Perfect on all screen sizes.</p>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- FEATURES SECTION -->
+    <section class="">
+        <!-- TODO: Add padding + white background -->
+        <h2 class="">
+            <!-- TODO: Center + bold + large -->
+            Features
+        </h2>
+
+        <div class="">
+            <!-- TODO: 3-column responsive grid + large gap -->
+
+            <div class="">
+                <!-- TODO: Light background, padding, rounded, shadow, vertical gap -->
+                <h3 class="">Customizable</h3>
+                <p class="">Modify colors, spacing, and shadows easily via config file.</p>
+            </div>
+
+            <div class="">
+                <h3 class="">Utility-First</h3>
+                <p class="">Compose UIs with predefined classes instead of writing CSS.</p>
+            </div>
+
+            <div class="">
+                <h3 class="">Developer Friendly</h3>
+                <p class="">Write less CSS and ship projects faster with clean workflows.</p>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- PRICING SECTION -->
+    <section class="">
+        <!-- TODO: Add padding -->
+        <h2 class="">
+            <!-- TODO: Center + bold + large -->
+            Pricing
+        </h2>
+
+        <div class="">
+            <!-- TODO: Grid with 3 cards + gap -->
+
+            <!-- CARD 1 -->
+            <div class="">
+                <!-- TODO: White background + padding + rounded + shadow + center text -->
+                <h3 class="">Basic</h3>
+                <p class="">$9</p>
+                <ul class="">
+                    <!-- TODO: Vertical spacing + gray text -->
+                    <li>✔ Starter Features</li>
+                    <li>✔ Email Support</li>
+                    <li>✔ Basic Insights</li>
+                </ul>
+                <button class="">
+                    <!-- TODO: Blue button full width -->
+                    Choose Plan
+                </button>
+            </div>
+
+            <!-- CARD 2 (Highlighted) -->
+            <div class="">
+                <!-- TODO: Blue background + white text + bigger shadow + scale effect -->
+                <h3 class="">Popular</h3>
+                <p class="">$19</p>
+                <ul class="">
+                    <li>✔ Unlimited Access</li>
+                    <li>✔ Priority Support</li>
+                    <li>✔ Advanced Insights</li>
+                </ul>
+                <button class="">
+                    <!-- TODO: White background button with blue text -->
+                    Choose Plan
+                </button>
+            </div>
+
+            <!-- CARD 3 -->
+            <div class="">
+                <h3 class="">Premium</h3>
+                <p class="">$49</p>
+                <ul class="">
+                    <li>✔ All Features</li>
+                    <li>✔ 24/7 Support</li>
+                    <li>✔ Pro Insights</li>
+                </ul>
+                <button class="">
+                    Choose Plan
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- CONTACT SECTION -->
+    <section class="">
+        <h2 class="">
+            <!-- TODO: Center + bold + large -->
+            Contact Us
+        </h2>
+
+        <div class="">
+            <!-- TODO: Make a centered card with padding + gray background + rounded + shadow -->
+
+            <!-- TODO: Apply input field pattern -->
+            <input type="text" placeholder="Your Name" class="" />
+
+            <input type="email" placeholder="Email Address" class="" />
+
+            <textarea placeholder="Message" class=""></textarea>
+
+            <!-- TODO: Full width blue button with hover + active animations -->
+            <button class="">Send Message</button>
+
+        </div>
+    </section>
+
+
+
+    <!-- FOOTER -->
+    <footer class="">
+        <!-- TODO: Center text + padding + gray background + gray text -->
+        © 2025 BrandName — All Rights Reserved.
+    </footer>
+
+</body>
+
+</html>
