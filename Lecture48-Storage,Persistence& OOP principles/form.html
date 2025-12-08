@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <div class="bg-zinc-500 h-screen w-auto mb-20">
+      <div id="personalform">
+        <form class="flex flex-col gap-3 p-4">
+          <h1>Personal Information</h1>
+          <label for="fname">First Number</label>
+          <input
+            class="border-2 bg-zinc-400 w-60"
+            type="text"
+            id="fname"
+            placeholder="enter your first name"
+          />
+          <label for="lname">Phone Number</label>
+          <input
+            class="border-2 bg-zinc-400 w-60"
+            type="text"
+            id="lname"
+            placeholder="enter your last  name"
+          />
+          <label for="number">Phone Number</label>
+          <input
+            class="border-2 bg-zinc-400 w-60"
+            type="number"
+            id="number"
+            placeholder="81XXXXXXX12"
+          />
+          <button id="personalformBtn" class="w-30 h-auto bg-blue-500">
+            Submit
+          </button>
+        </form>
+      </div>
+
+      <div id="educationform">
+        <form class="flex flex-col gap-3 p-4" action="" target="_blank">
+          <h1>Education</h1>
+          <label for="ssc">HSC</label>
+          <input
+            type="number"
+            id="ssc"
+            maxlength="2"
+            placeholder="Enter 10th Percentage"
+          />
+          <label for="hsc">SSC</label>
+          <input
+            type="number"
+            id="hsc"
+            maxlength="2"
+            placeholder="Enter 12th Percentage"
+          />
+          <label for="gradyation">Graduation Percentage</label>
+          <input
+            type="number"
+            id="grd"
+            maxlength="2"
+            placeholder="Enter graduation Percentage"
+          />
+          <button id="educationformBtn" class="w-30 h-auto bg-blue-500">
+            Submit
+          </button>
+        </form>
+      </div>
+
+      <div id="workform">
+        <form>
+          <h1>Work Experience</h1>
+
+          <label for="we">work experience</label>
+          <input type="checkbox" id="we" />
+          <label for="inE">internship experience</label>
+          <input type="checkbox" id="inE" />
+          <button id="workformBtn" class="w-30 h-auto bg-blue-500">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const personalform = document.querySelector("#personalform");
+      const educationform = document.querySelector("#educationform");
+      const workform = document.querySelector("#workform");
+
+      educationform.style.display = "none";
+      workform.style.display = "none";
+
+      const personalformBtn = document.querySelector("#personalformBtn");
+      const educationformBtn = document.querySelector("#educationformBtn");
+      const workFormBtn = document.querySelector("#workformBtn");
+
+      //inputs
+      const fname = document.querySelector("#fname");
+      const lname = document.querySelector("#lname");
+      const phone = document.querySelector("#number");
+
+      const ssc = document.querySelector("#ssc");
+      const hsc = document.querySelector("#hsc");
+      const grd = document.querySelector("#grd");
+
+      const workExp = document.querySelector("#we");
+      const internExp = document.querySelector("#inE");
+
+      const temp = JSON.parse(localStorage.getItem("personal"));
+      console.log(temp);
+      fname.value = temp.fname;
+      lname.value = temp.lname;
+      phone.value = temp.phone;
+
+      personalformBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const personalInfo = {
+          fname: fname.value,
+          lname: lname.value,
+          phone: phone.value,
+        };
+        localStorage.setItem("personal", JSON.stringify(personalInfo));
+        personalform.style.display = "none";
+        educationform.style.display = "block";
+
+        const temp = JSON.parse(localStorage.getItem("education"));
+        console.log(temp);
+        
+        ssc.value=temp.ssc;
+        hsc.value=temp.hsc;
+        grd.value=temp.grad;
+      });
+      educationformBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const educationInfo = {
+          ssc: ssc.value,
+          hsc: hsc.value,
+          grad: grd.value,
+        };
+        localStorage.setItem("education", JSON.stringify(educationInfo));
+        educationform.style.display = "none";
+        workform.style.display = "block";
+
+        const temp = JSON.parse(localStorage.getItem("work"));
+        console.log(temp);
+        workExp.checked=temp.workExp;
+        internExp.checked=temp.internExp
+      });
+      workFormBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const workInfo = {
+          workExp: workExp.checked,
+          internExp: internExp.checked,
+        };
+
+        localStorage.setItem("work", JSON.stringify(workInfo));
+      });
+    </script>
+  </body>
+</html>

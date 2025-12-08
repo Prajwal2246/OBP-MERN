@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <div class="bg-zinc-500 min-h-screen flex flex-col">
+      <!-- add notes div -->
+      <div class="flex flex-col">
+        <h1>Notes</h1>
+        <input
+          id="taskname"
+          type="text"
+          placeholder="task name"
+          class="bg-zinc-400 shadow-lg p-1 mx-2 mb-4"
+        />
+        <input
+          id="taskdescription"
+          type="text"
+          placeholder="task description"
+          class="bg-zinc-400 shadow-lg p-1 mx-2"
+        />
+        <button
+          id="add-btn"
+          class="rounded-xl bg-green-500 w-30 mx-10 mt-5 px-4 py-2"
+        >
+          Add
+        </button>
+      </div>
+
+      <!-- notes -->
+      <div id="notesdiv" class="flex flex-wrap mt-12"></div>
+    </div>
+
+    <script>
+    const taskName = document.querySelector("#taskname");
+    const taskdescp = document.querySelector("#taskdescription");
+    const notesdiv = document.querySelector("#notesdiv");
+    const addBtn = document.querySelector("#add-btn");
+    const fields = [taskName, taskdescp];
+
+
+    /**
+     * Removes a note by index from sessionStorage and re-renders the UI.
+     * @param {number} index - The index of the note to delete.
+     */
+    const deleteNote = (index) => {
+        // Retrieve notes, parse from JSON string to JS array
+        const notes = JSON.parse(sessionStorage.getItem("notes") || "[]");
+        
+        // Remove the note at the specified index
+        notes.splice(index, 1); 
+
+        // Save the modified array back to storage
+        sessionStorage.setItem("notes", JSON.stringify(notes));
+
+        // Update the UI immediately
+        displayNotes();
+    }
+
+
+    /**
+     * Renders all notes from sessionStorage to the UI.
+     */
+    const displayNotes = () => {
+        notesdiv.innerHTML = "";
+
+        // --- FIX 1: Correctly retrieve and parse the JSON string into an Array ---
+        const notes = JSON.parse(sessionStorage.getItem("notes") || "[]"); 
+        
+        if (notes.length === 0) {
+            const newp = document.createElement("p");
+            newp.textContent = "No notes yet";
+            newp.classList.add("m-2", "text-white", "italic");
+            notesdiv.appendChild(newp);
+        } else {
+            // Now that 'notes' is a proper array, forEach works.
+            notes.forEach((note, index) => {
+                // --- FIX 2: Correctly create the DIV element (removed JSON.parse) ---
+                const noteElement = document.createElement("div"); 
+                noteElement.classList.add("bg-zinc-700", "p-4", "m-2", "shadow-xl", "rounded-lg", "text-white", "w-full", "sm:w-[calc(50%-1rem)]", "lg:w-[calc(33.3333%-1rem)]"); 
+
+                // Create and populate the Title
+                const titleElement = document.createElement("h2");
+                titleElement.textContent = note.title;
+                titleElement.classList.add("text-xl", "font-bold", "mb-2", "border-b", "border-zinc-500", "pb-1");
+                
+                // Create and populate the Description
+                const descElement = document.createElement("p");
+                descElement.textContent = note.description;
+                descElement.classList.add("text-sm", "text-zinc-300", "mb-3");
+
+                // Create a Delete Button
+                const deleteBtn = document.createElement("button");
+                deleteBtn.textContent = "Delete";
+                deleteBtn.classList.add("bg-red-500", "hover:bg-red-600", "text-white", "px-3", "py-1", "rounded", "text-sm");
+
+                // --- FIX 3: Add the missing event listener ---
+                deleteBtn.addEventListener('click', () => {
+                    deleteNote(index);
+                });
+
+                noteElement.appendChild(titleElement);
+                noteElement.appendChild(descElement);
+                noteElement.appendChild(deleteBtn);
+                notesdiv.appendChild(noteElement);
+            });
+        }
+    };
+
+    addBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        for (let i of fields) {
+          if (i.value.trim() === "") {
+            alert("Please fill all fields");
+            return;
+          }
+        }
+
+        const newNote = {
+          title: taskName.value.trim(),
+          description: taskdescp.value.trim(),
+        };
+
+        const existingNotes = JSON.parse(
+          sessionStorage.getItem("notes") || "[]"
+        );
+
+        existingNotes.push(newNote);
+
+        sessionStorage.setItem("notes", JSON.stringify(existingNotes));
+
+        taskName.value = "";
+        taskdescp.value = "";
+
+        displayNotes();
+    });
+
+    // --- Ensure notes are displayed on page load ---
+    displayNotes();
+
+</script>
+  </body>
+</html>
+

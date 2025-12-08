@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <script>
+        const key="array";
+        const value=[10,20,30,40];
+
+        localStorage.setItem(key,value.join(" "));
+        //object
+        const obj={
+            name:"prajwal",
+            age:22
+        }
+
+        const objString = JSON.stringify(obj);
+        localStorage.setItem("obj",objString);
+        console.log(localStorage.getItem(key).split(" ").map(Number));
+
+
+        //session storage
+        // personal->education->work expeeriece
+        
+        
+    </script>
+</body>
+</html>

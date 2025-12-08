@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>handson</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <div class="bg-zinc-400 p-4 w-screen min-h-screen">
+      <h1 class="text-xl font-bold mb-4"></h1>
+      <form
+        id="personel"
+        class="flex flex-col m-2 mb-4"
+        data-form-name="Personal Details"
+      >
+        <label for="name" class="mb-2 text-xl">Name</label> 
+        <input
+          class="shadow-l bg-white w-50 rounded-l outline-none p-1"
+          type="text"
+          placeholder="Enter name"
+          id="name"
+        />
+
+        <label class="mb-2 text-xl" for="age">Age</label>
+        <input
+          type="text"
+          class="shadow-l bg-white w-50 outline-none p-1"
+          placeholder="Enter age"
+          id="age"
+        />
+        <label for="phone" class="mb-2 text-xl">Phone number</label>
+        <input
+          type="text"
+          placeholder="Enter phone"
+          class="shadow-l bg-white outline-none p-1 w-50"
+          id="phone"
+        />
+      </form>
+
+      <form
+        id="education"
+        class="flex flex-col m-2"
+        data-form-name="Education Background"
+      >
+        <label for="hsc" class="mb-2 text-xl">HSC</label>
+        <input
+          class="shadow-l bg-white w-50 rounded-l outline-none p-1"
+          type="text"
+          placeholder="HSC"
+          id="hsc"
+        />
+
+        <label class="mb-2 text-xl" for="grad">Graduation</label>
+        <input
+          type="text"
+          class="shadow-l bg-white w-50 outline-none p-1"
+          placeholder="Enter graduation details"
+          id="grad"
+        />
+      </form>
+
+      <form
+        id="workexperience"
+        class="flex flex-col m-2"
+        data-form-name="Work Experience"
+      >
+        <label for="exp" class="mb-2 text-xl">Experience</label>
+        <textarea
+          id="exp"
+          class="shadow-l bg-white w-auto rounded-lg outline-none p-1"
+        ></textarea>
+      </form>
+      <button
+        class="bg-blue-500 mx-2 px-4 py-2 rounded-lg text-white font-bold"
+      >
+        Next
+      </button>
+    </div>
+
+    <script>
+      const personalForm = document.querySelector("#personel");
+      const educationForm = document.querySelector("#education");
+      const workexperienceForm = document.querySelector("#workexperience");
+      const h1 = document.querySelector("h1");
+      const nextBtn = document.querySelector("button");
+      const forms = [personalForm, educationForm, workexperienceForm];
+      let currForm = 0;
+
+      /* Initial check: which form has data stored in session storage */
+      for (let i = 0; i < forms.length; i++) {
+        const form = forms[i];
+        
+        // **FIX 1**: Correctly select all data-entry elements
+        const inputs = form.querySelectorAll('input, textarea');
+        
+        let isFormComplete = true;
+        // Check if ANY input is missing data
+        for (const input of inputs) {
+            // Check session storage using the element's ID
+            if (!sessionStorage.getItem(input.id) || sessionStorage.getItem(input.id).length === 0) {
+                isFormComplete = false;
+                break;
+            }
+        }
+
+        if (!isFormComplete) {
+          currForm = i;
+          break;
+        }
+        // If the loop completes and all forms are filled, currForm will be the last index.
+        if (i === forms.length - 1) {
+            currForm = forms.length - 1;
+        }
+      }
+
+      /* Displaying only curr page and hiding others */
+      for (let i = 0; i < forms.length; i++) {
+        if (i !== currForm) {
+          forms[i].style.display = "none";
+        } else {
+          // Use 'flex' to match the class 'flex flex-col'
+          forms[i].style.display = "flex"; 
+        }
+      }
+      
+      /* Display h1 */
+      h1.textContent = forms[currForm].dataset.formName;
+
+      /* Next button click handler */
+      nextBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        
+        const currentForm = forms[currForm];
+        let allfieldsFilled = true;
+        
+        // **FIX 2**: Correctly select only data-entry elements for validation/storage
+        const inputs = currentForm.querySelectorAll('input, textarea'); 
+
+        /* Check whether all fields are filled or not */
+        for (const elem of inputs) {
+          if (elem.value.trim().length === 0) {
+            allfieldsFilled = false;
+            break;
+          }
+        }
+
+        /* if fields are empty */
+        if (!allfieldsFilled) {
+          alert("Please fill all details");
+          return;
+        }
+
+        /* storing data in session storage */
+        for (const elem of inputs) {
+          sessionStorage.setItem(elem.id, elem.value.trim());
+        }
+
+        /* if we are on last page */
+        if (currForm === forms.length - 1) {
+          alert("Form submitted");
+          sessionStorage.clear(); 
+          return;
+        }
+        
+        /* Move to next page */
+        forms[currForm].style.display = "none";
+        currForm++;
+        // Use 'flex' to match the class 'flex flex-col'
+        forms[currForm].style.display = "flex"; 
+        h1.textContent = forms[currForm].dataset.formName;
+      });
+    </script>
+  </body>
+</html>
