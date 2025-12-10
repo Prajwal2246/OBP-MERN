@@ -6,57 +6,97 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Document</title>
   </head>
-  <body>
+  <body class="bg-gray-900 text-white min-h-screen p-6">
     <!-- login  section-->
-    <section id="login">
-      <div class="flex flex-col gap-3 mx-2">
-        <p id="user-name" class="text-xl font-bold">Current User:</p>
-        <label for="username">Username</label>
-        <input type="text" class="bg-zinc-500 rounded w-60" id="username" />
-        <button class="flex bg-green-500 rounded w-30 px-6" id="setuser">
+    <section id="login" class="flex justify-center mt-10">
+      <div
+        class="flex flex-col gap-3 bg-gray-800 p-6 rounded-xl shadow-lg w-full max-w-sm border border-gray-700"
+      >
+        <p id="user-name" class="text-xl font-bold text-blue-400">
+          Current User:
+        </p>
+        <label for="username" class="text-gray-400">Username</label>
+        <input
+          type="text"
+          class="bg-gray-700 px-3 py-2 rounded-lg text-white border border-gray-600 focus:border-blue-400 outline-none"
+          id="username"
+        />
+        <button
+          class="bg-green-500 hover:bg-green-500 transition text-white py-2 rounded-lg font-semibold"
+          id="setuser"
+        >
           Set User
         </button>
       </div>
     </section>
 
-    <div id="allsections" class="grid grid-cols-[100px_1fr] min-h-screen">
-      <div class="w-auto border-r px-4">
-        <h2 class="font-bold text-xl mb-2">Users Section</h2>
+    <div
+      id="allsections"
+      class="grid grid-cols-[200px_1fr] mt-10 min-h-screen gap-4"
+    >
+      <div
+        class="font-bold text-xl mb-4 border-r border-gray-700 p-4 rounded-xl shadow-lg"
+      >
+        <h2 class="font-bold text-xl mb-4 text-blue-400">Users Section</h2>
         <ul id="userList" class="space-y-2"></ul>
       </div>
 
-      <div class="px-2">
+      <div class="space-y-6">
         <!-- suggesed section -->
-        <section id="suggestion" class="border">
-          <h2 class="text-xl font-bold">Suggested movies</h2>
-          <div id="movieList"></div>
+        <section
+          id="suggestion"
+          class="bg-gray-800 rounded-xl p-4 border border-gray-700 shadow-lg "
+        >
+          <h2 class="text-xl font-bold text-yellow-400 mb-3">
+            Suggested movies
+          </h2>
+          <div id="movieList" class="h-80 overflow-y-auto space-y-3"></div>
         </section>
 
         <!-- recommendation -->
-        <section id="recommendation" class="border">
-          <h2 class="text-xl font-bold">Tonight recommendation</h2>
-          <button id="pickMovieBtn">Pick Tonight movie</button>
-          <div id="recommendation-result"></div>
+        <section
+          id="recommendation"
+          class="bg-gray-800 rounded-xl p-4 border border-gray-700 shadow-lg"
+        >
+          <h2 class="text-xl font-bold text-pink-400">
+            Tonight recommendation
+          </h2>
+          <button
+            class="bg-blue-600 hover:bg-blue-500 transition px-4 py-2 m-3 rounded-lg shadow font-semibold"
+            id="pickMovieBtn"
+          >
+            Pick Tonight movie
+          </button>
+          <div id="recommendation-result" class="mt-4"></div>
         </section>
 
         <!-- history section -->
-        <section id="history" class="border">
-          <h2 class="text-xl font-bold">Watch History</h2>
-          <div id="historylist"></div>
-          <p id="watchStats"></p>
+        <section
+          id="history"
+          class="bg-gray-800 rounded-xl p-4 border border-gray-700 shadow-lg"
+        >
+          <h2 class="text-xl font-bold text-green-400 mb-3">Watch History</h2>
+          <div class="space-y-3" id="historylist"></div>
+          <p id="watchStats" class="mt-3 text-gray-300"></p>
         </section>
 
         <!--  add movie form -->
-        <section id="add-movie" class="border p-2">
-          <h2 class="text-xl font-bold">Add movie</h2>
-          <form id="movieForm" class="flex flex-col gap-2">
+        <section
+          id="add-movie"
+          class="bg-gray-800 rounded-xl p-4 border border-gray-700 shadow-lg"
+        >
+          <h2 class="text-xl font-bold text-blue-300">Add movie</h2>
+          <form id="movieForm" class="flex flex-col gap-2 mt-4">
             <input
               type="text"
               placeholder="Enter Movie Title"
-              class="bg-zinc-400 rounded px-2"
+              class="bg-gray-700 px-3 py-2 rounded-lg text-white border border-gray-600 focus:border-blue-400 outline-none"
               id="movietitle"
             />
-            <select id="movieGenre" class="border rounded">
+            <select
+              id="movieGenre"
+              class="bg-gray-700 px-3 py-2 rounded-lg border border-gray-600 text-white focus:border-blue-400 outline-none"
+            >
               <option value="">Select a genre</option>
               <option value="Action">Action</option>
               <option value="Drama">Drama</option>
@@ -67,16 +107,16 @@
             <input
               type="number"
               id="movieDuration"
-              class="bg-zinc-400 rounded px-2"
+              class="bg-gray-700 px-3 py-2 rounded-lg text-white border border-gray-600 focus:border-blue-400 outline-none"
               placeholder="duration in minutes"
             />
             <input
               type="number"
               id="releaseYear"
-              class="bg-zinc-400 rounded px-2"
+              class="bg-gray-700 px-3 py-2 rounded-lg text-white border border-gray-600 focus:border-blue-400 outline-none"
               placeholder="Release Year (1900-2025)"
             />
-            <div id="platforms">
+            <div id="platforms" class="grid grid-cols-2 gap-2 text-gray-300">
               <label for="netflix">
                 <input type="checkbox" id="netflix" />Netflix
               </label>
@@ -91,7 +131,7 @@
                 <input type="checkbox" id="disney-plus" />disney+
               </label>
             </div>
-            <button type="submit" class="bg-green-500 px-4 py-2 rounded-lg">
+            <button type="submit" class="bg-green-600 hover:bg-green-500 transition px-4 py-2 mt-2 rounded-lg text-white font-semibold shadow">
               Add Movie
             </button>
           </form>
@@ -100,6 +140,6 @@
     </div>
 
     <!-- <script src="script.js"></script> -->
-     <script src="handson.js"></script>
+    <script src="handson.js"></script>
   </body>
 </html>
