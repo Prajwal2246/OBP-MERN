@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    <h1>Employee</h1>
+    <button>CheckIn</button>
+    <button>CheckOut</button>
+    <br />
+    <h1>Manager</h1>
+    <button>CheckIn</button>
+    <button>CheckOut</button>
+    <script>
+      class Employee {
+        constructor(name, employ_id, designation, gender, salary, joiningDate) {
+          this.name = name;
+          this.employ_id = employ_id;
+          this.designation = designation;
+          this.gender = gender;
+          this.salary = salary;
+          this.joiningDate = joiningDate;
+        }
+        checkIn(time) {
+          this.CheckInTime = time.toLocaleTimeString();
+          const checkInTime = this.CheckInTime;
+          return checkInTime;
+        }
+        checkOut(time) {
+          return (this.CheckOutTime = time.toLocaleTimeString());
+        }
+        totalTimeToday() {
+          if (!this.CheckInTime || !this.CheckOutTime) {
+            console.log("Check in time or check out time missing");
+            return;
+          }
+          return this.CheckOutTime - this.CheckInTime;
+        }
+      }
+
+      document
+        .querySelector("button:first-of-type")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          const checkinData = empl1.checkIn(new Date());
+          console.log(checkinData);
+          this.checkInTime = checkinData;
+        });
+      document
+        .querySelector("button:nth-of-type(2)")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          const checkoutData = empl1.checkOut(new Date());
+          console.log(checkoutData);
+          this.CheckOutTime = checkoutData;
+          const time = this.totalTimeToday;
+          console.log(time);
+        });
+
+      const empl1 = new Employee(
+        "rahul",
+        "12",
+        "employee1",
+        "male",
+        20000,
+        "12 Nov 2020"
+      );
+
+      console.log(empl1);
+
+      class Manager extends Employee {
+        constructor(name, employ_id, designation, gender, salary, joiningDate,subordinates) {
+          super({ name, employ_id, designation, gender, salary, joiningDate });
+          this.subordinates = subordinates;
+        }
+      }
+      const manager = new Manager(
+        "manag",
+        "1",
+        "employee1",
+        "male",
+        20000,
+        "12 Nov 2020",
+      );
+
+      document
+        .querySelector("button:nth-of-type(3)")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          manager.checkIn(new Date());
+        });
+      document
+        .querySelector("button:nth-of-type(4)")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          manager.checkOut(new Date());
+          console.log(`${manager}   `);
+        });
+    </script>
+  </body>
+</html>

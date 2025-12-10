@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+
+        /* Prototype chaining
+         ->if  an instance doesnot find an method so it searches in its parent's prototype
+         -> if not in its parent's prototype then it searches in it's parent's parent prototype.
+
+         //when an child class calls super then 
+         -> it calls parent class constructor
+         -> that parent's constructor sets all the properties 
+         -> when parent is constructing properties then all things are saved in "this" keyword .
+
+         //parent does 
+         -> sets all properties in "this" and the "this" is of children  class
+
+         */
+
+         /*  ""oops""
+         encapsulatuion (methods+props)
+           -> sensitive data are protected (private krte data ko )
+           -> getters and setter we can access
+
+         inheritance 
+           -> super keyword ,extend keyword 
+           -> common parent class and child inherits
+           -> (is a) relationship 
+           ex-> car is a vehicle,truck is a vehicle
+           ex-> dog is a animal,cat is  a animal
+
+         polymorphism -(many forms)
+           -> dog also speak , cat can speak 
+           but dog speak is bhow bhow , cat speak is meow  meow
+           so the speak is here polymorphism
+           -> differnt classes can implement methods of same name (above ex-> speak)
+         
+         abstraction
+          -> hiding unncessary data and showing only what needs to show
+          -> hidding implementation (protect business logic)
+
+         composition
+          -> (has a) realtionship
+          -> ex-> profile has a settings page
+                  profile has a accounts page
+          -> ex-> profile page kholte hi muze setting aur accounts load hona chahiye uske liye profile ke constructor me apn dono ke instance banake "this" se attach krenge
+
+          */
+      class Animal {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+      }
+
+      class Dog extends Animal {
+        constructor(name, age) {
+          super(name, age);
+        }
+
+        speak() {
+          return "barks";
+        }
+      }
+
+      class Cat extends Animal {
+        constructor(name, age) {
+          super(name, age);
+        }
+        speak() {
+          return "meow";
+        }
+      }
+      const dog1 = new Dog("Tommy", 21);
+      console.log(dog1.speak());
+      console.log(dog1);
+
+      const cat = new Cat("Cat1", 12);
+      console.log(cat.speak());
+    </script>
+  </body>
+</html>

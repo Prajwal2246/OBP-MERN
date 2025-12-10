@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- login  section-->
+    <section id="login">
+      <div class="flex flex-col gap-3 mx-2">
+        <p id="user-name" class="text-xl font-bold">Current User:</p>
+        <label for="username">Username</label>
+        <input type="text" class="bg-zinc-500 rounded w-60" id="username" />
+        <button class="flex bg-green-500 rounded w-30 px-6" id="setuser">
+          Set User
+        </button>
+      </div>
+    </section>
+
+    <div id="allsections" class="grid grid-cols-[100px_1fr] min-h-screen">
+      <div class="w-auto border-r px-4">
+        <h2 class="font-bold text-xl mb-2">Users Section</h2>
+        <ul id="userList" class="space-y-2"></ul>
+      </div>
+
+      <div class="px-2">
+        <!-- suggesed section -->
+        <section id="suggestion" class="border">
+          <h2 class="text-xl font-bold">Suggested movies</h2>
+          <div id="movieList"></div>
+        </section>
+
+        <!-- recommendation -->
+        <section id="recommendation" class="border">
+          <h2 class="text-xl font-bold">Tonight recommendation</h2>
+          <button id="pickMovieBtn">Pick Tonight movie</button>
+          <div id="recommendation-result"></div>
+        </section>
+
+        <!-- history section -->
+        <section id="history" class="border">
+          <h2 class="text-xl font-bold">Watch History</h2>
+          <div id="historylist"></div>
+          <p id="watchStats"></p>
+        </section>
+
+        <!--  add movie form -->
+        <section id="add-movie" class="border p-2">
+          <h2 class="text-xl font-bold">Add movie</h2>
+          <form id="movieForm" class="flex flex-col gap-2">
+            <input
+              type="text"
+              placeholder="Enter Movie Title"
+              class="bg-zinc-400 rounded px-2"
+              id="movietitle"
+            />
+            <select id="movieGenre" class="border rounded">
+              <option value="">Select a genre</option>
+              <option value="Action">Action</option>
+              <option value="Drama">Drama</option>
+              <option value="Comedy">Comedy</option>
+              <option value="Horror">Horror</option>
+              <option value="Sci-fi">Sci-fi</option>
+            </select>
+            <input
+              type="number"
+              id="movieDuration"
+              class="bg-zinc-400 rounded px-2"
+              placeholder="duration in minutes"
+            />
+            <input
+              type="number"
+              id="releaseYear"
+              class="bg-zinc-400 rounded px-2"
+              placeholder="Release Year (1900-2025)"
+            />
+            <div id="platforms">
+              <label for="netflix">
+                <input type="checkbox" id="netflix" />Netflix
+              </label>
+              <label for="amazon-prime">
+                <input type="checkbox" id="amazon-prime" />Amazon Prime
+              </label>
+              <label for="hotstar">
+                <input type="checkbox" id="hotstar" />Hotstar
+              </label>
+
+              <label for="disney-plus">
+                <input type="checkbox" id="disney-plus" />disney+
+              </label>
+            </div>
+            <button type="submit" class="bg-green-500 px-4 py-2 rounded-lg">
+              Add Movie
+            </button>
+          </form>
+        </section>
+      </div>
+    </div>
+
+    <!-- <script src="script.js"></script> -->
+     <script src="handson.js"></script>
+  </body>
+</html>
