@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Lost & Found Board</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-gray-600 text-white">
+    <div class="bg-gray-500 min-h-screen">
+      <!-- form section -->
+      <div>
+        <form
+          id="item-form"
+          class="flex flex-col gap-2 mt-2 p-4 shadow bg-gray-600 text-gray-900 font-bold"
+        >
+          <h2 class="text-2xl font-bold text-blue-500">
+            Form for lost or found items
+          </h2>
+
+          <!-- radios -->
+          <div class="flex justify-center gap-50">
+            <label>
+              <input
+                type="radio"
+                name="type"
+                value="lost"
+                class="h-4 w-4 border border-gray-700 rounded-full checked:bg-blue-600 checked:ring-blue-300"
+              />
+              Lost
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="type"
+                value="found"
+                class="h-4 w-4 border border-gray-700 rounded-full checked:bg-blue-600 checked:ring-blue-300"
+              />
+              Found
+            </label>
+          </div>
+
+          <!-- other inputs -->
+          <label for="item">Item name</label>
+          <input
+            id="item"
+            class="border p-2 rounded"
+            type="text"
+            placeholder="Item name"
+          />
+
+          <label for="desc">Item description:</label>
+          <textarea
+            id="desc"
+            class="border p-2 rounded"
+            placeholder="description"
+          ></textarea>
+
+          <label for="location">Location</label>
+          <input
+            id="location"
+            type="text"
+            class="border p-2 rounded"
+            placeholder="location"
+          />
+
+          <label for="date">Date:</label>
+          <input id="date" type="date" class="border p-2 rounded" />
+
+          <label for="contact">Contact Info</label>
+          <input
+            id="contact"
+            type="email"
+            class="border p-2 rounded"
+            placeholder="enter your email"
+          />
+
+          <button
+            type="submit"
+            id="formBtn"
+            class="bg-blue-500 rounded-xl mt-10 px-4 py-2 text-white font-semibold"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+
+      <!-- lost section -->
+      <section id="lost-items" class="p-4">
+        <h2 class="text-xl font-bold text-yellow-300">Lost Items</h2>
+        <div id="lost-items-container" class="space-y-4"></div>
+      </section>
+
+      <!-- found section -->
+      <section id="found-items" class="p-4">
+        <h2 class="text-xl font-bold text-green-300">Found Items</h2>
+        <div id="found-items-container" class="space-y-4"></div>
+      </section>
+
+      <!-- statistics borad -->
+      <div class="p-4 bg-gray-700 text-white flex gap-6">
+        <p>Total Lost: <span id="lost-count">0</span></p>
+        <p>Total Found: <span id="found-count">0</span></p>
+        <p>Total Resolved: <span id="resolved-count">0</span></p>
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>
