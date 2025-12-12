@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- question 1: form validaton
+     <form>
+      <input type="text" placeholder="full name" id="fname" />
+      <input type="email" placeholder="Email" id="email" />
+      <input type="password" placeholder="password" id="pass" />
+      <button type="submit" id="btn">Register</button>
+    </form>
+    <script>
+      const fullname = document.querySelector("#fname");
+      const email = document.querySelector("#email");
+      const password = document.querySelector("#pass");
+      const btn = document.querySelector("#btn");
+      const form = document.querySelector("form");
+
+      
+      
+
+      const upercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      const lowecaseLetters = "abcdefghijklmnopqrstuvwxyz";
+      const numbers = "1234567890";
+      let specialChar = "!@#$%^&*()";
+
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        if (
+          fullname.value === "" ||
+          email.value === "" ||
+          password.value === ""
+        ) {
+          alert("fill all details");
+          return;
+        }
+
+        if (fullname.value.split(" ").length < 2) {
+          alert("enter full name");
+          return;
+        }
+
+        let hasUpperCase = false;
+        let hasLowerCase = false;
+        let hasNumbers = false;
+        let hasSpecialChar = false;
+
+        for (let i = 0; i < password.value.length; i++) {
+          let ch = password.value[i];
+
+          if (upercaseLetters.includes(ch)) hasUpperCase = true;
+          if (lowecaseLetters.includes(ch)) hasLowerCase = true;
+          if (numbers.includes(ch)) hasNumbers = true;
+          if (specialChar.includes(ch)) hasSpecialChar = true;
+        }
+
+        if (
+          password.value.length < 8 ||
+          !hasLowerCase ||
+          !hasUpperCase ||
+          !hasNumbers ||
+          !hasSpecialChar
+        ) {
+          alert("password fill enter");
+          return;
+        }
+
+        localStorage.setItem(
+          "form",
+          JSON.stringify({
+            fullname: fullname.value,
+            email: email.value,
+            password: password.value,
+          })
+        );
+
+        form.reset();
+      });
+    </script> -->
+
+    <ul id="priceList">
+      <li>$5</li>
+      <li>$2</li>
+      <li>$8</li>
+      <li>$3</li>
+      <li>$7</li>
+    </ul>
+
+    <script>
+      const ul = document.querySelector("#priceList");
+
+      let max = 0;
+      for (let li of ul.children) {
+        if (Number(li.textContent.replace("$","")) > max) {
+          max = Number(li.textContent.replace("$",""));
+        }
+      }
+
+      /* oneway */
+      // for (let li of ul.children) {
+      //   if (Number(li.textContent.replace("$","")) === max) {
+      //     li.style.backgroundColor = "green";
+      //   }
+      // }
+      
+      /* secondway */
+     document.addEventListener("DOMContentLoaded",()=>{
+       for (let li of ul.children) {
+        if (Number(li.textContent.replace("$","")) === max) {
+          li.style.backgroundColor = "green";
+        }
+      }
+     })
+    </script>
+
+
+
+  </body>
+</html>

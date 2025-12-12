@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body>
+    <main
+      class="bg-gray-800 px-4 py-2 min-h-screen text-gray-400 flex flex-col"
+    >
+      <h1 class="flex justify-center text-3xl font-bold text-orange-300">
+        Quiz me Bro
+      </h1>
+      <section class="quiz border p-4 rounded shadow">
+        <div
+          class="timer flex justify-end font-semibold text-xl text-white px-4 py-2"
+        >
+          
+        </div>
+        <div class="flex justify-center p-4 m-4 mx-60">
+          <p class="text-xl font-semibold text-white/80">
+            Question: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            In quasi ullam at dignissimos, veniam eligendi obcaecati aliquam
+            fugit ratione! Quidem aspernatur deserunt nostrum temporibus minus
+            ea, quaerat possimus vel cum.
+          </p>
+        </div>
+        <!--  options -->
+        <div class="options p-4 mx-60">
+          <ul class="grid grid-cols-2 gap-4">
+            <li
+              class="p-3 rounded-xl bg-white/10 backdrop-blur border border-white/20 text-white hover:bg-green-700 cursor-pointer transition"
+            >
+              OP1
+            </li>
+            <li
+              class="p-3 rounded-xl bg-white/10 backdrop-blur border border-white/20 text-white hover:bg-white/20 cursor-pointer transition"
+            >
+              OP2
+            </li>
+            <li
+              class="p-3 rounded-xl bg-white/10 backdrop-blur border border-white/20 text-white hover:bg-green-700 cursor-pointer transition"
+            >
+              OP3
+            </li>
+            <li
+              class="p-3 rounded-xl bg-white/10 backdrop-blur border border-white/20 text-white hover:bg-green-700 cursor-pointer transition"
+            >
+              OP4
+            </li>
+          </ul>
+        </div>
+
+        <!-- buttons prev next -->
+        <div class="buttons flex justify-between px-4 py-2 mt-20">
+          <button
+            class="border border-orange-400 px-4  py-1 text-xl rounded-md text-orange-300 hover:scale-102"
+          >
+            Prev
+          </button>
+          <button
+            class="border border-orange-400 px-4 py-1 text-xl rounded-md text-orange-300 hover:bg-white/10 hover:scale-102"
+          >
+            Next
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
