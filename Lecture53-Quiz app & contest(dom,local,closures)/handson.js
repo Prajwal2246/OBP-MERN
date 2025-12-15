@@ -34,7 +34,7 @@ const questions = [
     id: 3,
     text: "Which HTML tag is used to link JavaScript?",
     options: ["link", "script", "js", "javascript"],
-    correctOption:2 ,
+    correctOption: 2,
     type: "mcq",
   }),
 
@@ -61,7 +61,7 @@ class Quiz {
     this.duration = duration;
     this.userResponse = {};
     this.score = 0;
-    this.currQuestionIndex = 0;
+    this.currentQuestionIndex = 0;
   }
 
   start() {
@@ -69,135 +69,119 @@ class Quiz {
     this.currentQuestion();
   }
 
-  displayOptions(qidx) {
-  const optionsUl = document.querySelector("ul");
-  const options = this.questions[qidx].options;
-  const selected = this.userResponse[qidx];
+  displayOptions(qIdx) {
+    const questionOptions = this.questions[qIdx].options;
+    const elementInDom = document.querySelector("ul");
+    const selected = this.userResponse[qIdx];
 
-  optionsUl.innerHTML = options
-    .map((option, index) => {
-      const isSelected = selected === index ? "bg-green-600 text-white" : "bg-white/10";
-      return `
-         <li data-option-idx="${index}" 
+    elementInDom.innerHTML = questionOptions
+      .map((option, index) => {
+        const isSelected =
+          selected === index ? "bg-green-600 text-white" : "bg-white/10";
+        return `
+          <li data-option-idx="${index}" 
              class="option p-3 rounded-xl ${isSelected}
              backdrop-blur border border-white/20 hover:bg-green-700 cursor-pointer transition">
               ${option}
          </li>
-      `;
-    })
-    .join("");
-}
+        `;
+      })
+      .join("");
+  }
 
   currentQuestion() {
-    const idx = this.currQuestionIndex;
+    const idx = this.currentQuestionIndex;
     const questionTextElement = document.querySelector("p");
     questionTextElement.textContent = this.questions[idx].text;
 
     this.displayOptions(idx);
   }
-  prevQuestion() {
-    if (this.currQuestionIndex === 0) {
+  prevQuestions() {
+    if (this.currentQuestionIndex === 0) {
       return;
     }
-    if (this.currQuestionIndex === this.questions.length - 1) {
+    if (this.currentQuestionIndex === this.questions.length - 1) {
       const submitBtn = document.querySelector(".buttons").lastElementChild;
       submitBtn.textContent = "Next";
     }
-    this.currQuestionIndex--;
+
+    this.currentQuestionIndex--;
     this.currentQuestion();
   }
   nextQuestion() {
-    if (this.currQuestionIndex === this.questions.length - 1) {
+    if (this.currentQuestionIndex === this.questions.length - 1) {
       this.submit();
       return;
     }
-    if (this.currQuestionIndex === this.questions.length - 2) {
+    if (this.currentQuestionIndex === this.questions.length - 2) {
       const nextBtn = document.querySelector(".buttons").lastElementChild;
-      nextBtn.textContent = "Submit";
+      nextBtn.textContent = "submit";
     }
-
-    this.currQuestionIndex++;
+    this.currentQuestionIndex++;
     this.currentQuestion();
   }
-//   calculateScore() {
-//     const qidx=this.currQuestionIndex;
-//     for(let questionsIdx in this.userResponse){
-//         const optionIdx=this.userResponse[questionsIdx]; //option selected by user
-//         const correctOpt = this.questions[qidx].correctOption //correct option from questions araya
-//         if( correctOpt === optionIdx ){
-//             this.score++;
-//         }
-//     }
-//   }
-calculateScore() {
-  this.score = 0; // reset score
+  calculateScore() {
+    this.score = 0;
+    for (let qidx in this.userResponse) {
+      const selected = this.userResponse[qidx];
+      const correct = this.questions[qidx].correctOption;
 
-  for (let qidx in this.userResponse) {
-    const selected = this.userResponse[qidx];
-    const correct = this.questions[qidx].correctOption;
-
-    if (selected === correct) {
-      this.score++;
+      if (selected === correct) {
+        this.score++;
+      }
     }
   }
-}
-
-captureUserResponse(userSelectedOptionIdx) {
-    const qidx = this.currQuestionIndex;
+  captureUserResponse(userSelectedOptionIdx) {
+    const qidx = this.currentQuestionIndex;
     this.userResponse[qidx] = userSelectedOptionIdx;
   }
+
   startTimer() {
     const timerElement = document.querySelector(".timer");
-    let remainingTime = this.duration * 60;
+    let remianingTime = this.duration * 60; //min->sec
 
-    this.timer = setInterval(()=>{
-        remainingTime--;
-        const hr = String(Math.floor(remainingTime/3600)).padStart(2,"0");
-        const min = String(Math.floor((remainingTime/60)%60)).padStart(2,"0");
-        const sec = String(Math.floor(remainingTime%60)).padStart(2,"0");
+    this.timer = setInterval(() => {
+      remianingTime--;
+      const hr = String(Math.floor(remianingTime / 3600)).padStart(2, "0");
+      const min = String(Math.floor((remianingTime / 60) % 60)).padStart(
+        2,
+        "0"
+      );
+      const sec = String(Math.floor(remianingTime % 60)).padStart(2, "0");
 
-        timerElement.textContent = ` ${hr}:${min}:${sec}`
+      timerElement.textContent = `${hr}:${min}:${sec}`;
 
-        if(remainingTime < 0){
-            clearInterval(this.timer);
-            alert("quiz submited");
-        }
-    },1000)
-    
+      if (remianingTime < 0) {
+        clearInterval(this.timer);
+      }
+    }, 1000);
   }
   submit() {
     this.calculateScore();
     clearInterval(this.timer);
     console.log(this.userResponse);
     console.log(this.score);
-    
-    
-    //display
-
   }
 }
 
-const quiz = new Quiz({ questions, duration: 1 });
+const quiz = new Quiz({ questions, duration: 20 });
 quiz.start();
 
 const options = document.querySelector(".options");
 const prevButton = document.querySelector(".buttons").children[0];
 const nextButton = document.querySelector(".buttons").children[1];
 
-/* option */
 options.addEventListener("click", (e) => {
   if (e.target.matches("li")) {
-    const optionIndex = parseInt(e.target.dataset.optionIdx);
-    quiz.captureUserResponse(optionIndex);
+    const optIdx = parseInt(e.target.dataset.optionIdx);
+    quiz.captureUserResponse(optIdx);
   }
 });
 
-/* Prev */
-prevButton.addEventListener("click", () => {
-  quiz.prevQuestion();
+prevButton.addEventListener("click", (e) => {
+  quiz.prevQuestions();
 });
 
-/* next */
-nextButton.addEventListener("click", () => {
+nextButton.addEventListener("click", (e) => {
   quiz.nextQuestion();
 });
