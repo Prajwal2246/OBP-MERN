@@ -2,7 +2,7 @@ const timeBtn = document.querySelector("button");
 const timerEle = document.querySelector("h2");
 const textareaInput = document.querySelector("textarea");
 
-let count = 60;
+let count = 5;
 let timer = null; //here we store interval timer
 let userTimeTaken = 0;
 
@@ -24,6 +24,7 @@ function startTimer() {
 
   if (count <= 0) {
     clearInterval(timer); //stop the interval
+    textareaInput.disabled=true;
   }
 }
 
