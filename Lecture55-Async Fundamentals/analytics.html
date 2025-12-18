@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .dashboard-title {
+            font-size: 28px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .dashboard-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .filters-bar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-group label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .filter-group select:focus,
+        .filter-group input:focus {
+            border-color: #667eea;
+        }
+
+        .widgets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .widget {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            position: relative;
+            cursor: move;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+        .widget:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .widget-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .widget-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .widget-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+            transition: color 0.3s;
+            padding: 5px;
+        }
+
+        .widget-btn:hover {
+            color: #667eea;
+        }
+
+        .widget-content {
+            position: relative;
+        }
+
+        .counter-widget .counter-value {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .counter-widget .counter-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .counter-widget .counter-change {
+            font-size: 12px;
+            margin-top: 5px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .counter-change.positive {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .counter-change.negative {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .chart-widget {
+            min-height: 250px;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .bar {
+            flex: 1;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: all 0.5s;
+            min-width: 30px;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+            transform: scaleY(1.05);
+        }
+
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .line-chart {
+            height: 200px;
+            position: relative;
+            margin-top: 15px;
+        }
+
+        .line-chart svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .pie-chart {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+        }
+
+        .progress-widget .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .progress-bar-container {
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 6px;
+            transition: width 1s ease;
+        }
+
+        .list-widget .list-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background 0.3s;
+        }
+
+        .list-item:hover {
+            background: #f5f5f5;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-item-title {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .list-item-value {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .last-updated {
+            font-size: 11px;
+            color: #999;
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .widget-fullscreen {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            z-index: 1000;
+            max-width: none;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+            white-space: nowrap;
+        }
+
+        .add-widget-menu {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1001;
+            display: none;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .add-widget-menu.active {
+            display: block;
+        }
+
+        .add-widget-menu h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .widget-type-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .widget-type-btn:hover {
+            border-color: #667eea;
+            background: #f5f5ff;
+        }
+
+        .dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        @media (max-width: 768px) {
+            .widgets-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filters-bar {
+                flex-direction: column;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .dashboard-controls,
+            .filters-bar,
+            .widget-controls {
+                display: none !important;
+            }
+
+            .widget {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">📊 Analytics Dashboard</h1>
+            <div class="dashboard-controls">
+                <button class="btn btn-primary" onclick="dashboardManager.openAddWidgetMenu()">+ Add Widget</button>
+                <button class="btn btn-secondary" onclick="dashboardManager.refreshAll()">🔄 Refresh</button>
+                <button class="btn btn-secondary" onclick="dashboardManager.exportData()">📥 Export</button>
+                <button class="btn btn-secondary" onclick="window.print()">🖨️ Print</button>
+            </div>
+        </div>
+
+        <div class="filters-bar">
+            <div class="filter-group">
+                <label>Date Range</label>
+                <select id="dateRange" onchange="dashboardManager.applyFilters()">
+                    <option value="today">Today</option>
+                    <option value="week" selected>Last 7 Days</option>
+                    <option value="month">Last 30 Days</option>
+                    <option value="year">Last Year</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Category</label>
+                <select id="category" onchange="dashboardManager.applyFilters()">
+                    <option value="all">All Categories</option>
+                    <option value="sales">Sales</option>
+                    <option value="traffic">Traffic</option>
+                    <option value="users">Users</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>From</label>
+                <input type="date" id="dateFrom" onchange="dashboardManager.applyFilters()">
+            </div>
+            <div class="filter-group">
+                <label>To</label>
+                <input type="date" id="dateTo" onchange="dashboardManager.applyFilters()">
+            </div>
+        </div>
+
+        <div class="widgets-grid" id="widgetsGrid">
+            <!-- Widgets will be added here dynamically -->
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="add-widget-menu" id="addWidgetMenu">
+        <h3>Add New Widget</h3>
+        <button class="widget-type-btn" onclick="dashboardManager.createWidget('counter')">📊 Counter Widget</button>
+        <button class="widget-type-btn" onclick="dashboardManager.createWidget('bar')">📈 Bar Chart</button>
+        <button class="widget-type-btn" onclick="dashboardManager.createWidget('line')">📉 Line Chart</button>
+        <button class="widget-type-btn" onclick="dashboardManager.createWidget('pie')">🥧 Pie Chart</button>
+        <button class="widget-type-btn" onclick="dashboardManager.createWidget('progress')">⏳ Progress Widget</button>
+        <button class="widget-type-btn" onclick="dashboardManager.createWidget('list')">📋 List Widget</button>
+        <button class="widget-type-btn" onclick="dashboardManager.closeMenus()">❌ Cancel</button>
+    </div>
+
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        // ============================================
+        // BASE WIDGET CLASS (OOP with Inheritance)
+        // ============================================
+        class Widget {
+            constructor(id, title, type) {
+                this.id = id;
+                this.title = title;
+                this.type = type;
+                this.lastUpdated = new Date();
+                this.element = null;
+            }
+
+            // Base render method to be overridden by child classes
+            render() {
+                throw new Error('render() must be implemented by subclass');
+            }
+
+            // Create DOM element structure
+            createElement() {
+                const widget = document.createElement('div');
+                widget.className = 'widget';
+                widget.id = this.id;
+                widget.draggable = true;
+
+                // Set up drag and drop
+                widget.addEventListener('dragstart', (e) => dragDropManager.handleDragStart(e));
+                widget.addEventListener('dragover', (e) => dragDropManager.handleDragOver(e));
+                widget.addEventListener('drop', (e) => dragDropManager.handleDrop(e));
+                widget.addEventListener('dragend', (e) => dragDropManager.handleDragEnd(e));
+
+                const content = this.render();
+
+                widget.innerHTML = `
+                    <div class="widget-header">
+                        <h3 class="widget-title">${this.title}</h3>
+                        <div class="widget-controls">
+                            <button class="widget-btn" onclick="dashboardManager.refreshWidget('${this.id}')" title="Refresh">🔄</button>
+                            <button class="widget-btn" onclick="dashboardManager.toggleFullscreen('${this.id}')" title="Fullscreen">⛶</button>
+                            <button class="widget-btn" onclick="dashboardManager.removeWidget('${this.id}')" title="Remove">✕</button>
+                        </div>
+                    </div>
+                    <div class="widget-content">
+                        ${content}
+                        <div class="last-updated">Last updated: ${this.lastUpdated.toLocaleTimeString()}</div>
+                    </div>
+                `;
+
+                this.element = widget;
+                return widget;
+            }
+
+            // Refresh widget data
+            refresh() {
+                this.lastUpdated = new Date();
+                if (this.element) {
+                    const lastUpdatedEl = this.element.querySelector('.last-updated');
+                    if (lastUpdatedEl) {
+                        lastUpdatedEl.textContent = `Last updated: ${this.lastUpdated.toLocaleTimeString()}`;
+                    }
+                }
+            }
+
+            // Utility method for formatting numbers
+            formatNumber(num, prefix = '', suffix = '') {
+                return prefix + num.toLocaleString() + suffix;
+            }
+        }
+
+        // ============================================
+        // COUNTER WIDGET (Inherits from Widget)
+        // ============================================
+        class CounterWidget extends Widget {
+            constructor(id, data) {
+                super(id, data.label, 'counter');
+                this.value = data.value;
+                this.change = data.change;
+                this.icon = data.icon;
+                this.prefix = data.prefix || '';
+                this.suffix = data.suffix || '';
+            }
+
+            render() {
+                return `
+                    <div class="counter-widget">
+                        <div class="counter-value">${this.icon} ${this.formatNumber(this.value, this.prefix, this.suffix)}</div>
+                        <div class="counter-label">${this.title}</div>
+                        <div class="counter-change ${this.change >= 0 ? 'positive' : 'negative'}">
+                            ${this.change >= 0 ? '↑' : '↓'} ${Math.abs(this.change)}%
+                        </div>
+                    </div>
+                `;
+            }
+
+            refresh() {
+                super.refresh();
+                // Simulate data change
+                this.value += Math.floor(Math.random() * 100) - 50;
+                this.change = (Math.random() * 20) - 10;
+                
+                if (this.element) {
+                    const content = this.element.querySelector('.widget-content');
+                    const oldContent = content.querySelector('.counter-widget');
+                    oldContent.outerHTML = this.render();
+                }
+            }
+        }
+
+        // ============================================
+        // BAR CHART WIDGET (Inherits from Widget)
+        // ============================================
+        class BarChartWidget extends Widget {
+            constructor(id, title, data) {
+                super(id, title, 'bar');
+                this.labels = data.labels;
+                this.values = data.values;
+            }
+
+            render() {
+                return `
+                    <div class="chart-widget">
+                        <div class="bar-chart">
+                            ${this.renderBars()}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderBars() {
+                return this.labels.map((label, i) => `
+                    <div class="bar" style="height: ${this.values[i]}%" 
+                         onmouseenter="chartRenderer.showTooltip(event, '${label}: ${this.values[i]}')"
+                         onmouseleave="chartRenderer.hideTooltip()">
+                        <span class="bar-value">${this.values[i]}</span>
+                        <span class="bar-label">${label}</span>
+                    </div>
+                `).join('');
+            }
+
+            refresh() {
+                super.refresh();
+                // Simulate data change
+                this.values = this.values.map(v => Math.max(10, Math.min(100, v + Math.floor(Math.random() * 20) - 10)));
+                
+                if (this.element) {
+                    const content = this.element.querySelector('.widget-content');
+                    const oldChart = content.querySelector('.chart-widget');
+                    oldChart.outerHTML = this.render();
+                }
+            }
+        }
+
+        // ============================================
+        // LINE CHART WIDGET (Inherits from Widget)
+        // ============================================
+        class LineChartWidget extends Widget {
+            constructor(id, title, data) {
+                super(id, title, 'line');
+                this.points = data.points;
+            }
+
+            render() {
+                return `
+                    <div class="chart-widget">
+                        <div class="line-chart">
+                            ${chartRenderer.renderLineChart(this.points)}
+                        </div>
+                    </div>
+                `;
+            }
+
+            refresh() {
+                super.refresh();
+                // Simulate data change
+                this.points = this.points.map(p => Math.max(10, Math.min(100, p + Math.floor(Math.random() * 20) - 10)));
+                
+                if (this.element) {
+                    const content = this.element.querySelector('.widget-content');
+                    const oldChart = content.querySelector('.chart-widget');
+                    oldChart.outerHTML = this.render();
+                }
+            }
+        }
+
+        // ============================================
+        // PIE CHART WIDGET (Inherits from Widget)
+        // ============================================
+        class PieChartWidget extends Widget {
+            constructor(id, title, data) {
+                super(id, title, 'pie');
+                this.data = data;
+            }
+
+            render() {
+                return `
+                    <div class="chart-widget">
+                        <div class="pie-chart">
+                            ${chartRenderer.renderPieChart(this.data)}
+                        </div>
+                    </div>
+                `;
+            }
+
+            refresh() {
+                super.refresh();
+                // Simulate data change
+                let total = 100;
+                this.data = this.data.map((item, i) => {
+                    if (i === this.data.length - 1) {
+                        return { ...item, value: total };
+                    }
+                    const newVal = Math.max(5, Math.min(40, item.value + Math.floor(Math.random() * 10) - 5));
+                    total -= newVal;
+                    return { ...item, value: newVal };
+                });
+                
+                if (this.element) {
+                    const content = this.element.querySelector('.widget-content');
+                    const oldChart = content.querySelector('.chart-widget');
+                    oldChart.outerHTML = this.render();
+                }
+            }
+        }
+
+        // ============================================
+        // PROGRESS WIDGET (Inherits from Widget)
+        // ============================================
+        class ProgressWidget extends Widget {
+            constructor(id, title, data) {
+                super(id, title, 'progress');
+                this.items = data;
+            }
+
+            render() {
+                return `
+                    <div class="progress-widget">
+                        ${this.items.map(item => `
+                            <div class="progress-item">
+                                <div class="progress-label">
+                                    <span>${item.label}</span>
+                                    <span>${item.value}%</span>
+                                </div>
+                                <div class="progress-bar-container">
+                                    <div class="progress-bar-fill" style="width: ${item.value}%"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            refresh() {
+                super.refresh();
+                // Simulate progress changes
+                this.items = this.items.map(item => ({
+                    ...item,
+                    value: Math.max(0, Math.min(100, item.value + Math.floor(Math.random() * 10) - 2))
+                }));
+                
+                if (this.element) {
+                    const content = this.element.querySelector('.widget-content');
+                    const oldProgress = content.querySelector('.progress-widget');
+                    oldProgress.outerHTML = this.render();
+                }
+            }
+        }
+
+        // ============================================
+        // LIST WIDGET (Inherits from Widget)
+        // ============================================
+        class ListWidget extends Widget {
+            constructor(id, title, data) {
+                super(id, title, 'list');
+                this.items = data;
+            }
+
+            render() {
+                return `
+                    <div class="list-widget">
+                        ${this.items.map(item => `
+                            <div class="list-item" onclick="dashboardManager.showDetails('${item.title}')">
+                                <span class="list-item-title">${item.title}</span>
+                                <span class="list-item-value">${item.value}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            refresh() {
+                super.refresh();
+                // Simulate data changes
+                this.items = this.items.map(item => ({
+                    ...item,
+                    value: String(parseInt(item.value.replace(/,/g, '')) + Math.floor(Math.random() * 200) - 100)
+                }));
+                
+                if (this.element) {
+                    const content = this.element.querySelector('.widget-content');
+                    const oldList = content.querySelector('.list-widget');
+                    oldList.outerHTML = this.render();
+                }
+            }
+        }
+
+        // ============================================
+        // CHART RENDERER (Chart Rendering Algorithms)
+        // ============================================
+        class ChartRenderer {
+            renderLineChart(points) {
+                const width = 300;
+                const height = 200;
+                const padding = 20;
+                const max = Math.max(...points);
+                
+                // Calculate path points using scaling algorithm
+                const pathPoints = points.map((value, index) => {
+                    const x = padding + (index * (width - 2 * padding) / (points.length - 1));
+                    const y = height - padding - ((value / max) * (height - 2 * padding));
+                    return `${x},${y}`;
+                }).join(' ');
+
+                return `
+                    <svg viewBox="0 0 ${width} ${height}">
+                        <defs>
+                            <linearGradient id="gradient-${Date.now()}" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#667eea" />
+                                <stop offset="100%" style="stop-color:#764ba2" />
+                            </linearGradient>
+                        </defs>
+                        <polyline points="${pathPoints}" fill="none" stroke="url(#gradient-${Date.now()})" stroke-width="3" />
+                        ${points.map((value, index) => {
+                            const x = padding + (index * (width - 2 * padding) / (points.length - 1));
+                            const y = height - padding - ((value / max) * (height - 2 * padding));
+                            return `<circle cx="${x}" cy="${y}" r="4" fill="#667eea" />`;
+                        }).join('')}
+                    </svg>
+                `;
+            }
+
+            renderPieChart(data) {
+                let currentAngle = 0;
+                const total = data.reduce((sum, item) => sum + item.value, 0);
+                const radius = 80;
+                const cx = 100;
+                const cy = 100;
+
+                // Pie chart arc calculation algorithm
+                const slices = data.map(item => {
+                    const percentage = item.value / total;
+                    const angle = percentage * 360;
+                    const startAngle = currentAngle;
+                    const endAngle = currentAngle + angle;
+
+                    // Convert angles to coordinates using trigonometry
+                    const x1 = cx + radius * Math.cos((startAngle - 90) * Math.PI / 180);
+                    const y1 = cy + radius * Math.sin((startAngle - 90) * Math.PI / 180);
+                    const x2 = cx + radius * Math.cos((endAngle - 90) * Math.PI / 180);
+                    const y2 = cy + radius * Math.sin((endAngle - 90) * Math.PI / 180);
+
+                    const largeArc = angle > 180 ? 1 : 0;
+
+                    currentAngle = endAngle;
+
+                    return `
+                        <path d="M ${cx} ${cy} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} Z"
+                              fill="${item.color}" opacity="0.9" />
+                    `;
+                }).join('');
+
+                const legend = data.map((item) => `
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 8px;">
+                        <div style="width: 12px; height: 12px; background: ${item.color}; border-radius: 2px;"></div>
+                        <span style="font-size: 12px;">${item.label} (${item.value}%)</span>
+                    </div>
+                `).join('');
+
+                return `
+                    <svg viewBox="0 0 200 200" style="width: 200px; height: 200px;">
+                        ${slices}
+                    </svg>
+                    <div style="text-align: left; margin-top: 10px;">
+                        ${legend}
+                    </div>
+                `;
+            }
+
+            showTooltip(event, text) {
+                const tooltip = document.getElementById('tooltip');
+                tooltip.textContent = text;
+                tooltip.style.display = 'block';
+                tooltip.style.left = event.pageX + 10 + 'px';
+                tooltip.style.top = event.pageY - 30 + 'px';
+            }
+
+            hideTooltip() {
+                document.getElementById('tooltip').style.display = 'none';
+            }
+        }
+
+        // ============================================
+        // DRAG AND DROP MANAGER
+        // ============================================
+        class DragDropManager {
+            constructor() {
+                this.draggedElement = null;
+            }
+
+            handleDragStart(e) {
+                this.draggedElement = e.target;
+                e.target.classList.add('dragging');
+            }
+
+            handleDragOver(e) {
+                e.preventDefault();
+            }
+
+            handleDrop(e) {
+                e.preventDefault();
+                if (e.target.classList.contains('widget') && e.target !== this.draggedElement) {
+                    const grid = document.getElementById('widgetsGrid');
+                    const allWidgets = Array.from(grid.children);
+                    const draggedIndex = allWidgets.indexOf(this.draggedElement);
+                    const targetIndex = allWidgets.indexOf(e.target);
+
+                    if (draggedIndex < targetIndex) {
+                        e.target.after(this.draggedElement);
+                    } else {
+                        e.target.before(this.draggedElement);
+                    }
+                    preferenceManager.saveLayout();
+                }
+            }
+
+            handleDragEnd(e) {
+                e.target.classList.remove('dragging');
+                this.draggedElement = null;
+            }
+        }
+
+        // ============================================
+        // PREFERENCE MANAGER (LocalStorage)
+        // ============================================
+        class PreferenceManager {
+            constructor() {
+                this.storageKey = 'dashboard_preferences';
+            }
+
+            saveLayout() {
+                const layout = Array.from(document.querySelectorAll('.widget')).map(w => ({
+                    id: w.id,
+                    type: w.dataset.type
+                }));
+                
+                const prefs = this.getPreferences();
+                prefs.layout = layout;
+                prefs.lastSaved = new Date().toISOString();
+                
+                localStorage.setItem(this.storageKey, JSON.stringify(prefs));
+            }
+
+            loadLayout() {
+                const prefs = this.getPreferences();
+                return prefs.layout || [];
+            }
+
+            saveFilters(filters) {
+                const prefs = this.getPreferences();
+                prefs.filters = filters;
+                localStorage.setItem(this.storageKey, JSON.stringify(prefs));
+            }
+
+            loadFilters() {
+                const prefs = this.getPreferences();
+                return prefs.filters || {};
+            }
+
+            getPreferences() {
+                try {
+                    const saved = localStorage.getItem(this.storageKey);
+                    return saved ? JSON.parse(saved) : {};
+                } catch (e) {
+                    console.error('Error loading preferences:', e);
+                    return {};
+                }
+            }
+
+            clearPreferences() {
+                localStorage.removeItem(this.storageKey);
+            }
+        }
+
+        // ============================================
+        // DASHBOARD MANAGER (Main Controller)
+        // ============================================
+        class DashboardManager {
+            constructor() {
+                this.widgets = new Map();
+                this.widgetIdCounter = 0;
+                this.updateInterval = null;
+                this.sampleData = {
+                    counters: [
+                        { label: 'Total Sales', value: 45230, change: 12.5, icon: '💰' },
+                        { label: 'Active Users', value: 8942, change: -3.2, icon: '👥' },
+                        { label: 'Conversion Rate', value: 3.7, change: 5.8, icon: '🎯', suffix: '%' },
+                        { label: 'Revenue', value: 128500, change: 18.3, icon: '💵', prefix: ""},
+                    ],
+                    barData: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                        values: [45, 62, 48, 75, 58, 83, 70]
+                    },
+                    lineData: {
+                        points: [30, 45, 42, 58, 52, 68, 65, 78, 72, 85]
+                    },
+                    pieData: [
+                        { label: 'Direct', value: 35, color: '#667eea' },
+                        { label: 'Social', value: 25, color: '#764ba2' },
+                        { label: 'Organic', value: 30, color: '#f093fb' },
+                        { label: 'Referral', value: 10, color: '#4facfe' }
+                    ],
+                    progressData: [
+                        { label: 'Project Alpha', value: 75 },
+                        { label: 'Project Beta', value: 45 },
+                        { label: 'Project Gamma', value: 90 }
+                    ],
+                    listData: [
+                        { title: 'New York', value: '2,543' },
+                        { title: 'Los Angeles', value: '1,892' },
+                        { title: 'Chicago', value: '1,234' },
+                        { title: 'Houston', value: '987' },
+                        { title: 'Phoenix', value: '756' }
+                    ]
+                };
+            }
+
+            init() {
+                // Initialize default widgets
+                this.createWidget('counter');
+                this.createWidget('bar');
+                this.createWidget('line');
+                this.createWidget('progress');
+                this.createWidget('list');
+                this.createWidget('pie');
+
+                // Set up auto-refresh
+                this.startAutoRefresh();
+
+                // Set default dates
+                const today = new Date();
+                const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+                document.getElementById('dateTo').valueAsDate = today;
+                document.getElementById('dateFrom').valueAsDate = weekAgo;
+
+                // Load saved filters
+                const savedFilters = preferenceManager.loadFilters();
+                if (savedFilters.dateRange) {
+                    document.getElementById('dateRange').value = savedFilters.dateRange;
+                }
+                if (savedFilters.category) {
+                    document.getElementById('category').value = savedFilters.category;
+                }
+            }
+
+            createWidget(type) {
+                const id = `widget-${this.widgetIdCounter++}`;
+                let widget;
+
+                switch(type) {
+                    case 'counter':
+                        const counter = this.sampleData.counters[Math.floor(Math.random() * this.sampleData.counters.length)];
+                        widget = new CounterWidget(id, counter);
+                        break;
+
+                    case 'bar':
+                        widget = new BarChartWidget(id, 'Weekly Performance', this.sampleData.barData);
+                        break;
+
+                    case 'line':
+                        widget = new LineChartWidget(id, 'Trend Analysis', this.sampleData.lineData);
+                        break;
+
+                    case 'pie':
+                        widget = new PieChartWidget(id, 'Traffic Sources', this.sampleData.pieData);
+                        break;
+
+                    case 'progress':
+                        widget = new ProgressWidget(id, 'Project Progress', this.sampleData.progressData);
+                        break;
+
+                    case 'list':
+                        widget = new ListWidget(id, 'Top Locations', this.sampleData.listData);
+                        break;
+
+                    default:
+                        console.error('Unknown widget type:', type);
+                        return;
+                }
+
+                // Store widget instance
+                this.widgets.set(id, widget);
+
+                // Create and append DOM element
+                const element = widget.createElement();
+                element.dataset.type = type;
+                document.getElementById('widgetsGrid').appendChild(element);
+
+                // Save layout
+                preferenceManager.saveLayout();
+                this.closeMenus();
+            }
+
+            refreshWidget(id) {
+                const widget = this.widgets.get(id);
+                if (widget) {
+                    widget.element.style.animation = 'none';
+                    setTimeout(() => {
+                        widget.element.style.animation = 'fadeIn 0.5s';
+                        widget.refresh();
+                    }, 10);
+                }
+            }
+
+            refreshAll() {
+                this.widgets.forEach((widget) => {
+                    this.refreshWidget(widget.id);
+                });
+            }
+
+            removeWidget(id) {
+                const widget = this.widgets.get(id);
+                if (widget && widget.element) {
+                    widget.element.style.animation = 'fadeOut 0.3s';
+                    setTimeout(() => {
+                        widget.element.remove();
+                        this.widgets.delete(id);
+                        preferenceManager.saveLayout();
+                    }, 300);
+                }
+            }
+
+            toggleFullscreen(id) {
+                const widget = this.widgets.get(id);
+                const overlay = document.getElementById('overlay');
+                
+                if (widget && widget.element) {
+                    if (widget.element.classList.contains('widget-fullscreen')) {
+                        widget.element.classList.remove('widget-fullscreen');
+                        overlay.classList.remove('active');
+                    } else {
+                        widget.element.classList.add('widget-fullscreen');
+                        overlay.classList.add('active');
+                    }
+                }
+            }
+
+            openAddWidgetMenu() {
+                document.getElementById('overlay').classList.add('active');
+                document.getElementById('addWidgetMenu').classList.add('active');
+            }
+
+            closeMenus() {
+                document.getElementById('overlay').classList.remove('active');
+                document.getElementById('addWidgetMenu').classList.remove('active');
+                
+                // Close fullscreen if open
+                const fullscreenWidget = document.querySelector('.widget-fullscreen');
+                if (fullscreenWidget) {
+                    fullscreenWidget.classList.remove('widget-fullscreen');
+                }
+            }
+
+            showDetails(item) {
+                alert(`Showing detailed analytics for: ${item}\n\nThis would typically open a detailed view with charts, trends, and historical data.`);
+            }
+
+            applyFilters() {
+                const filters = {
+                    dateRange: document.getElementById('dateRange').value,
+                    category: document.getElementById('category').value,
+                    dateFrom: document.getElementById('dateFrom').value,
+                    dateTo: document.getElementById('dateTo').value
+                };
+                
+                preferenceManager.saveFilters(filters);
+                console.log('Filters applied:', filters);
+                this.refreshAll();
+            }
+
+            exportData() {
+                const data = {
+                    exported: new Date().toISOString(),
+                    widgetCount: this.widgets.size,
+                    widgets: Array.from(this.widgets.values()).map(w => ({
+                        id: w.id,
+                        type: w.type,
+                        title: w.title
+                    })),
+                    filters: preferenceManager.loadFilters()
+                };
+                
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `dashboard-export-${Date.now()}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+
+            startAutoRefresh() {
+                this.updateInterval = setInterval(() => {
+                    const widgetIds = Array.from(this.widgets.keys());
+                    if (widgetIds.length > 0) {
+                        const randomId = widgetIds[Math.floor(Math.random() * widgetIds.length)];
+                        this.refreshWidget(randomId);
+                    }
+                }, 10000); // Refresh a random widget every 10 seconds
+            }
+        }
+
+        // ============================================
+        // INITIALIZE GLOBAL INSTANCES
+        // ============================================
+        const chartRenderer = new ChartRenderer();
+        const dragDropManager = new DragDropManager();
+        const preferenceManager = new PreferenceManager();
+        const dashboardManager = new DashboardManager();
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            dashboardManager.init();
+        });
+
+        // Handle overlay clicks
+        document.getElementById('overlay').addEventListener('click', () => {
+            dashboardManager.closeMenus();
+        });
+    </script>
+</body>
+</html>  

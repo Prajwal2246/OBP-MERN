@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .widgets-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(289px, 1fr));
+      }
+      .widget {
+        background: #fff;
+        border-radius: 8px;
+        padding: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      }
+
+      .widget-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .counter-value {
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .counter-change.positive {
+        color: green;
+      }
+      .counter-change.negative {
+        color: red;
+      }
+
+      /* bar graph */
+      .bar-widget {
+        height: 200px;
+        margin-bottom: 7px;
+      }
+      .bar-chart {
+        height: 100%;
+        display: flex;
+        gap: 10px;
+        align-items: flex-end;
+      }
+      .bar {
+        flex: 1;
+        background: #4facfe;
+        border-radius: 4px 4px 0 0;
+        position: relative;
+        transition: height 0.3 ease;
+      }
+      .bar-value {
+        position: absolute;
+        top: -18px;
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+      }
+
+      .bar-label {
+        position: absolute;
+        bottom: -18px;
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+      }
+
+      /* line chart */
+      .line-widget {
+        height: 200px;
+      }
+
+      .line-chart {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        background: #f5f7fa;
+        border-radius: 6px;
+      }
+
+      /* POINTS */
+      .line-point {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #667eea;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+      /* pie */
+      .pie-widget {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .pie-chart {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+      }
+
+      .pie-legend {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 14px;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+      }
+
+      /* add widget */
+      .add-widget-menu {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        background: #fff;
+        padding: 16px;
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        display: none;
+        z-index: 100;
+      }
+
+      .add-widget-menu.show {
+        display: block;
+      }
+
+      .add-widget-menu button {
+        display: block;
+        width: 100%;
+        margin-top: 8px;
+        padding: 8px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <div class="dashboard-header">
+        <h1 class="dashboard-title">Analytics Dashboard</h1>
+        <div class="dashboard-controls">
+          <button class="btn btn-primary" id="addWidgetBtn">Add widget</button>
+
+          <button class="btn btn-primary" id="refreshBtn">Refresh</button>
+          <button class="btn btn-primary">Export</button>
+          <button class="btn btn-primary">Print</button>
+        </div>
+      </div>
+      <div class="widgets-grid" id="widgetsGrid">
+        <!-- dynamically widgets will be added here -->
+      </div>
+    </div>
+    <div class="add-widget-menu" id="addWidgetMenu">
+      <h3>Add new widget</h3>
+      <button data-type="counter">Counter</button>
+      <button data-type="line">Line Chart</button>
+      <button data-type="bar">Bar Chart</button>
+      <button data-type="pie">Pie Chart</button>
+    </div>
+
+    <script src="analytics.js"></script>
+  </body>
+</html>
