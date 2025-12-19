@@ -1,0 +1,37 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#outer-box{
+    background-color: rgb(123, 107, 147);
+    width: 400px;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid grey;
+    box-shadow: 4px 2px 12px grey;
+}
+
+#timer{
+    text-align: end;
+    font-size: 21px;
+}
+
+#q-box{
+    font-size: 18px;
+    color: black;
+}
+
+#next{
+    float: right;
+    padding: 10px;
+    border-radius: 10px;
+}
