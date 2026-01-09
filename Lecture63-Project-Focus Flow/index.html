@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <section id="session-form">
+      <h2>Session form</h2>
+      <form novalidate>
+        <label for="session-name">Session Name:</label>
+        <input
+          type="text"
+          id="session-name"
+          required
+          placeholder="enter session name"
+          minlength="3"
+        />
+        <p id="session-name-error"></p>
+
+        <label for="study-duration">Study Duration</label>
+        <input
+          type="number"
+          id="study-duration"
+          required
+          min="5"
+          placeholder="enter study duration in minutes"
+        />
+        <p id="study-duration-error"></p>
+
+        <label for="break-duration">Break Duration</label>
+        <input
+          type="number"
+          required
+          id="break-duration"
+          min="2"
+          placeholder="enter break duration"
+        />
+        <p id="break-duration-error"></p>
+
+        <label for="study-cycle">Study Cycles</label>
+        <input
+          type="number"
+          required
+          id="study-cycle"
+          min="1"
+          placeholder="enter no of cycles"
+        />
+        <p id="study-cycle-error"></p>
+
+        <button id="submit" type="submit" disabled>Start Session</button>
+      </form>
+
+      <button id="history">History</button>
+      <section id="history-section" class="hidden">
+        <p id="name"></p>
+        <p id="time"></p>
+        <p id="completion"></p>
+      </section>
+    </section>
+
+    <section id="dashboard" class="hidden">
+      <h2 id="phase">Current Phase:</h2>
+      <p id="timer">Timer:25:00</p>
+      <p id="cycle-tracker">Current Study Cycle:0</p>
+      <button id="pause">Pause</button>
+
+
+      <div id="quotes-div" class="hiddenn">
+        <p id="quote-loading">Loading the quote of the day...</p>
+        <p id="quote"></p>
+      </div>
+    </section>
+
+
+    <script src="script.js"></script>
+  </body>
+</html>
