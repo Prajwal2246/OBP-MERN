@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="main"></div>
+
+    <script>
+      const div = document.querySelector("#main");
+
+      const h2 = document.createElement("h2");
+      h2.textContent = "Prajwal";
+      const pTag = document.createElement("p");
+      pTag.textContent = "i'm living in pune";
+
+      div.appendChild(h2);
+      div.appendChild(pTag);
+    </script>
+  </body>
+</html>
