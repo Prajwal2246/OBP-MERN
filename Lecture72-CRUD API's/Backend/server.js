@@ -13,7 +13,6 @@ let books = [
     title: "Zero to One",
     description: "A perfect book for starting a business",
     status: "un-read",
-
     author: "Rahul Gandhi",
   },
   {
@@ -90,7 +89,6 @@ app.get("/books", (req, res) => {
   res.status(200).json(books);
 });
 
-
 /* get */
 app.get("/book/:id", (req, res) => {
   const id = Number(req.params.id);
@@ -101,7 +99,6 @@ app.get("/book/:id", (req, res) => {
   }
   res.status(200).json(book);
 });
-
 
 /* post */
 app.post("/addbook", (req, res) => {
@@ -123,7 +120,6 @@ app.post("/addbook", (req, res) => {
   });
 });
 
-
 /* put */
 app.put("/book/changeStatus/:id", (req, res) => {
   const status = req.body.status;
@@ -133,16 +129,37 @@ app.put("/book/changeStatus/:id", (req, res) => {
   res.send(200).json({ message: "updated status successfully.." });
 });
 
-
 /* delete */
 app.delete("/delete/:id", (req, res) => {
   const id = req.params.id;
-  const bookInd = books.find((book)=>book.id == id);
-  books.splice(bookInd,1);
-  
-  res.status(200).json({message:"deleted..."})
+  const bookInd = books.find((book) => book.id == id);
+  books.splice(bookInd, 1);
+
+  res.status(200).json({ message: "deleted..." });
 });
 
+app.patch("/users/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const {email} = req.body;
+
+  const book = books.find((book) => book.id === id);
+
+  if (!book) {
+    return res.status(404).json({ message: "Not found" });
+  }
+
+  if (!Array.isArray(book.users)) {
+    book.users = [];
+  }
+
+  const emailExist = book.users.includes(email);
+  if (emailExist) {
+    return res.status(400).json({ message: "email exist" });
+  }
+
+  book.users.push(email);
+  res.status(200).json(book.users);
+});
 
 app.listen(PORT, () => {
   console.log(`app is running on port ${PORT}`);

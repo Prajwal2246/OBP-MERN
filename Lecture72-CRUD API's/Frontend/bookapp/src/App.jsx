@@ -9,6 +9,7 @@ function App() {
   const [bookid, setBookId] = useState("");
   const [book, setBook] = useState(null);
   const [error, setError] = useState("");
+  const [activeBookId, setActiveBookId] = useState(null);
   const SERVER_BASE_URL = "http://localhost:3000/";
 
   async function getBooks() {
@@ -32,6 +33,7 @@ function App() {
       await axios.put(`http://localhost:3000/book/changeStatus/${id}`, {
         status: "read",
       });
+      setActiveBookId(id);
       getBooks();
     } catch (error) {
       console.error(error);
@@ -59,6 +61,7 @@ function App() {
             item={item}
             handleStatus={handleStatus}
             handleDelete={handleDelete}
+            activeBookId={activeBookId}
           />
         ))}
 
