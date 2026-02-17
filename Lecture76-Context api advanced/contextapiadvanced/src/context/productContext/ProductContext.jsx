@@ -33,10 +33,14 @@ export function ProductContextProvider({ children }) {
     }
   }
 
-  function removeFromCart(productIdx) {}
+  function removeFromCart(productIdx) {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== productIdx));
+  }
 
   return (
-    <ProductContext.Provider value={{ products, cart, addToCart }}>
+    <ProductContext.Provider
+      value={{ products, cart, addToCart, removeFromCart }}
+    >
       {children}
     </ProductContext.Provider>
   );
