@@ -28,7 +28,7 @@ app.post("/register", async (req, res) => {
       password: hashedPassword,
     };
     users.push(user);
-    res.send("user added succesfully..");
+    res.json({ message: "User added successfully", user });
   } catch (error) {
     res.status(500).json({ msg: error.message || "Internal Server Error" });
   }

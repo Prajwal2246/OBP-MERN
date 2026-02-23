@@ -1,33 +1,19 @@
 import { useState } from "react";
 import "./App.css";
+import Register from "./components/Register";
+import Login from "./components/Login";
 
 function App() {
-  const [email,setEmail]=useState('');
-  const [password,setPassword]=useState('');
-  const SERVER_API="http://localhost:3000/"  
-
-
-  const handleRegister=(email,pass)=>{
-    
-
-  }
+  const [isRegistered, setIsRegistered] = useState(false);
+  const SERVER_API = "http://localhost:3000/";
 
   return (
     <>
-      <div>
-        <label>Email</label>
-        <input type="email"
-        value={email}
-        onChange={(e)=>setEmail(e.target.value)}
-         placeholder="enter email" />
-
-        <label>Password</label>
-        <input type="password" 
-        value={password}
-        onChange={(e)=>setPassword(e.target.value)}
-        placeholder="enter password" />
-        <button onClick={()=>handleRegister(email,password)}>register</button>
-      </div>
+      {!isRegistered ? (
+        <Register SERVER_API={SERVER_API} isRegistered={isRegistered} setIsRegistered={setIsRegistered} />
+      ) : (
+        <Login  SERVER_API={SERVER_API} />
+      )}
     </>
   );
 }
