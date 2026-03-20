@@ -24,9 +24,21 @@ const getAllCommunities = async () => {
 };
 
 const getSpecificCommunity = async (id) => {
-  if(!mongoose.Types.ObjectId.isValid(id)) throw new Error("Invalid community Id");
-  
-  const community = await Community.findById(id);
+  if (!mongoose.Types.ObjectId.isValid(id))
+    throw new Error("Invalid community Id");
+
+  // const community = await Community.findById(id).populate("host","name -_id");  short way to populate
+  /* long way to populate */
+  const community = await Community.findById(id)
+    .populate({
+      path: "host",
+      select: "name -_id email",
+    })
+    .lean();
+
+  /* we can use populate inside populate also */
+  // community.host = community.host.name; here we can directly set host ans hostname
+
   return community;
 };
 
