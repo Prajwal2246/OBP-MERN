@@ -3,6 +3,8 @@ const os = require("os");
 const http = require("http");
 const url = require("url");
 
+
+/* node core functionaliteies :-fs,os,http,url */
 /* file operations 
 // fs.writeFileSync("name.txt","hello my name is Prajwal")
 // fs.writeFileSync("name.txt","this is rewriting file again")
