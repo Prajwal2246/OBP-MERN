@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Community from "../models/Community.js";
+import { User } from "../models/User.js";
 
 const createCommunity = async ({ name, description, host, category }) => {
   const inputErros = [];
@@ -42,4 +43,37 @@ const getSpecificCommunity = async (id) => {
   return community;
 };
 
-export default { createCommunity, getAllCommunities, getSpecificCommunity };
+const getCommunityWithMembers = async (id) => {
+  if (!mongoose.Types.ObjectId.isValid(id))
+    throw new Error("Community Id is not a valid mongoose ObjectId");
+
+  const community = await Community.findById(id);
+  if (!community) throw new Error("no community exist with this id");
+
+  const members = await User.find({
+    joinedCommunity: id,
+  }).lean();
+
+  // const members =await User.find({
+  //   joinedCommunity: {
+  //     $in:[id,"69b9040bb0dd34f5b2c5e857"]
+  //   },
+  // }).lean();
+
+  // const members =await User.find({
+  //   joinedCommunity: {
+  //     $all: [id, "69b9040bb0dd34f5b2c5857"],
+  //   },
+  // }).lean();
+
+  community.members = members;
+
+  return community;
+};
+
+export default {
+  createCommunity,
+  getAllCommunities,
+  getSpecificCommunity,
+  getCommunityWithMembers,
+};

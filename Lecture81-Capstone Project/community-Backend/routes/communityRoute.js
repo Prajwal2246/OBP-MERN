@@ -1,6 +1,5 @@
 import express from "express";
 import communityControler from "../controllers/communityControler.js";
-
 import authMiddleware from "../middlewares/authMiddleware.js";
 import { isHostMiddleware } from "../middlewares/isHostMiddleware.js";
 
@@ -15,5 +14,6 @@ router.post(
 
 router.post("/all", communityControler.getAllCommunities);
 router.get("/specific", communityControler.getSpecificCommunity);
+router.get("/with-members", communityControler.getCommunityWithMembers);
 
 export default router;
