@@ -30,10 +30,14 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  capacity:{
-    type:Number,
-
-  }
+  capacity: {
+    type: Number,
+  },
+  mode: {
+    type: String,
+    enum: ["online", "offline"],
+    required: true,
+  },
 });
 
 //schema to mongodb db me dalana hai to schema to convert krna pdta hai
