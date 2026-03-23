@@ -36,12 +36,15 @@ const createEvent = async (req, res) => {
 
 const getAllEvents = async (req, res) => {
   try {
-    const { keyword, city } = req.params;
+    const { keyword, city } = req.query;
     //call service
     const allevent = await eventService.getAllEvents({ keyword, city });
 
     res.json({
-      data: allevent,
+      data: {
+        message:"successfully fetched the list of searched events",
+        events:allevent
+      },
       error: null,
     });
   } catch (err) {

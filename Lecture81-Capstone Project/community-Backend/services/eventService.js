@@ -36,6 +36,13 @@ const createEvent = async ({
     throw new Error(`current user is not host of  ${community.name}`);
   }
 
+  const eventTime = new Date(time);
+  const todayTime = new Date();
+
+  if (eventTime < todayTime) {
+    throw new Error("time cannot be in the past");
+  }
+
   const newEvent = await new Event({
     name,
     description,
@@ -51,11 +58,23 @@ const createEvent = async ({
 };
 
 const getAllEvents = async ({ keyword, city }) => {
-  const query = {
-    time: { $gt: new Date() },
+  const filter = {
+    time: { $gte: new Date() },
   };
 
-  return await Event.find(query)
+  if (city) filter.city = { $regex: city, $options: "i" };
+
+  /* keyword present in name or description and regex checks for any substring present and options tells about case is insensitive so it shoudl match both lowercase  */
+  if (keyword) {
+    filter.$or = [
+      {
+        name: { $regex: keyword, $options: "i" },
+        description: { $regex: keyword, $options: "i" },
+      },
+    ];
+  }
+
+  return await Event.find(filter)
     .select("name description city venue communityId time -_id ")
     .populate("communityId", "name -_id ")
     .lean();
@@ -63,7 +82,11 @@ const getAllEvents = async ({ keyword, city }) => {
 
 const getEventById = async (id) => {
   const event = await Event.findOne({ _id: id })
-    .populate("communityId", "-_id -__v -host")
+    .populate({
+      path: "communityId",
+      select: "-_id -__v",
+      populate: { path: "host", select: "name -_id" },
+    })
     .lean();
   if (!event) throw new Error("No event found");
 
