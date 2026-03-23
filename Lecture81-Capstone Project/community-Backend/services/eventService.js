@@ -1,6 +1,7 @@
 import Event from "../models/Event.js";
 import Community from "../models/Community.js";
 import { User } from "../models/User.js";
+import mongoose from "mongoose";
 
 const createEvent = async ({
   name,
@@ -81,10 +82,13 @@ const getAllEvents = async ({ keyword, city }) => {
 };
 
 const getEventById = async (id) => {
+
+  if(!mongoose.Types.ObjectId.isValid(id)) throw new Error("id is not a valid mongooseId");
+  
   const event = await Event.findOne({ _id: id })
     .populate({
       path: "communityId",
-      select: "-_id -__v",
+      select: "name",
       populate: { path: "host", select: "name -_id" },
     })
     .lean();
