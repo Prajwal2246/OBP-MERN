@@ -29,8 +29,8 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const {user,token} = await userService.loginUser({ email, password });
-     res.cookie("token", token, {
+    const { user, token } = await userService.loginUser({ email, password });
+    res.cookie("token", token, {
       httpOnly: true,
       // secure:true //for production,
       sameSite: "lax", //strict,lax,none
@@ -119,4 +119,36 @@ const makeHost = async (req, res) => {
   }
 };
 
-export default { register, login, profile, joinCommunity, makeHost };
+const getCurrUser = async (req, res) => {
+  const token = req.cookies.token;
+  if (!token) throw new Error("no token found");
+
+  try {
+    const currUser = await userService.getCurrUser(token);
+    //call service
+    res.json({
+      data: {
+        message: "user found",
+        info: currUser,
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "no user found",
+        info: err.message,
+      },
+      data: null,
+    });
+  }
+};
+export default {
+  register,
+  login,
+  profile,
+  joinCommunity,
+  makeHost,
+  getCurrUser,
+};

@@ -1,5 +1,6 @@
 import Event from "../models/Event.js";
 import Community from "../models/Community.js";
+import { User } from "../models/User.js";
 
 const createEvent = async ({
   name,
@@ -49,4 +50,30 @@ const createEvent = async ({
   await newEvent.save();
 };
 
-export default { createEvent };
+const getAllEvents = async ({ keyword, city }) => {
+  const query = {
+    time: { $gt: new Date() },
+  };
+
+  return await Event.find(query)
+    .select("name description city venue communityId time -_id ")
+    .populate("communityId", "name -_id ")
+    .lean();
+};
+
+const getEventById = async (id) => {
+  const event = await Event.findOne({ _id: id })
+    .populate("communityId", "-_id -__v -host")
+    .lean();
+  if (!event) throw new Error("No event found");
+
+  const rsvpCount = await User.countDocuments({
+    rsvpedEvents: id,
+  });
+  return {
+    ...event,
+    rsvpCount,
+  };
+};
+
+export default { createEvent, getAllEvents, getEventById };

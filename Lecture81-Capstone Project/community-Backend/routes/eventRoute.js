@@ -15,4 +15,7 @@ router.post(
   eventController.createEvent,
 );
 
+router.get("/all",eventController.getAllEvents)
+router.get("/:id",eventController.getEventById)
+
 export default router;

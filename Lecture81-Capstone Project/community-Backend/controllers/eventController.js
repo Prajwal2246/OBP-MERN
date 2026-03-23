@@ -34,4 +34,46 @@ const createEvent = async (req, res) => {
   }
 };
 
-export default { createEvent };
+const getAllEvents = async (req, res) => {
+  try {
+    const { keyword, city } = req.params;
+    //call service
+    const allevent = await eventService.getAllEvents({ keyword, city });
+
+    res.json({
+      data: allevent,
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "unable to fetch all events",
+        info: err.message,
+      },
+      data: null,
+    });
+  }
+};
+
+const getEventById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const event = await eventService.getEventById(id);
+    res.json({
+      data: event,
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "Unable to find event",
+        info: err.message,
+      },
+      data: null,
+    });
+  }
+};
+
+export default { createEvent, getAllEvents, getEventById };
