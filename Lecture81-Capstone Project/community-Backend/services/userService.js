@@ -99,22 +99,9 @@ const makeHost = async (userId) => {
   });
 };
 
-const getCurrUser = async (token) => {
-  if (!token) throw new Error("no token found");
-
-  const decodedUser = jwt.verify(token, process.env.JWT_SECRET);
-  if (!decodedUser) throw new Error("no user found");
-
-  const user = await User.findOne({ email: decodedUser.email }).select("-role");
-  if (!user) throw new Error("no user found");
-
-  return user;
-};
-
 export default {
   registerUser,
   loginUser,
   joinCommunity,
   makeHost,
-  getCurrUser,
 };

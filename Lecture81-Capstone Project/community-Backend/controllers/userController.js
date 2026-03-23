@@ -120,16 +120,17 @@ const makeHost = async (req, res) => {
 };
 
 const getCurrUser = async (req, res) => {
-  const token = req.cookies.token;
-  if (!token) throw new Error("no token found");
+  // const token = req.cookies.token;
+  // if (!token) throw new Error("no token found");
 
   try {
-    const currUser = await userService.getCurrUser(token);
-    //call service
+    if (!req.user)
+      throw new Error("user not found from token,please login/signup again");
+
     res.json({
       data: {
         message: "user found",
-        info: currUser,
+        user: req.user,
       },
       error: null,
     });

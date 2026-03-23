@@ -7,7 +7,7 @@ router.post("/register", userController.register);
 router.get("/login", userController.login);
 router.patch("/community", authMiddleware, userController.joinCommunity);
 router.patch("/make-host", authMiddleware, userController.makeHost);
-router.get("/me", userController.getCurrUser);
+router.get("/me", authMiddleware,userController.getCurrUser);
 
 router.get("/profile", authMiddleware, userController.profile);
 export default router;
