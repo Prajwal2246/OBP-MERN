@@ -71,9 +71,36 @@ const getCommunityWithMembers = async (id) => {
   return community;
 };
 
+const deleteCommunity = async ({ id, userId }) => {
+  if (!mongoose.Types.ObjectId.isValid(id))
+    throw new Error("given community id is not valid");
+
+  const community = await Community.findById(id).lean();
+
+  if(community?.host.toString() != userId.toString())
+    throw new Error("current user is not the host of the community");
+    
+
+  if (!community) throw new Error("no community exist with this id");
+
+  await Community.findByIdAndUpdate(id);
+
+  await Event.deleteMany({ communityId: id });
+
+  await User.updateMany(
+    {
+      joinedCommunity: id,
+    },
+    {
+      $pull: { joinedCommunity: id },
+    },
+  );
+};
+
 export default {
   createCommunity,
   getAllCommunities,
   getSpecificCommunity,
   getCommunityWithMembers,
+  deleteCommunity,
 };

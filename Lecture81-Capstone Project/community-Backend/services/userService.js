@@ -99,9 +99,78 @@ const makeHost = async (userId) => {
   });
 };
 
+const leaveCommunity = async ({ id, user_id }) => {
+  if (!mongoose.Types.ObjectId.isValid(id))
+    throw new Error("id is not a valid mongooseId");
+
+  //checking if community exist or not
+  const community = await Community.findById(id);
+  if (!community) throw new Error("no community exist with this id");
+
+  //remvoe that community from joinedCommunity
+  await User.findByIdAndUpdate(user_id, {
+    $pull: {
+      joinedCommunity: id,
+    },
+  });
+};
+
+const dashboard = async (id) => {
+  if (!id) throw new Error("userid not exist");
+
+  const dashboard = await User.findById(id)
+    .select("name role joinedCommunity rsvpedEvents")
+    .populate({ path: "joinedCommunity", select: "name category" })
+    .populate({
+      path: "rsvpedEvents",
+      select: "name city time mode",
+      populate: {
+        path: "communityId",
+        select: "name",
+      },
+    });
+  return dashboard;
+};
+
+const hostDashboard = async (id) => {
+  if (!id) throw new Error("userid not exist");
+
+  const dashboard = await User.findById(id)
+    .select("name joinedCommunity rsvpedEvents")
+    .populate({ path: "joinedCommunity", select: "name category" })
+    .populate({
+      path: "rsvpedEvents",
+      select: "name city time mode",
+      populate: {
+        path: "communityId",
+        select: "name",
+      },
+    })
+    .lean();
+  const communities = await Community.find({ host: id }).lean();
+  dashboard.hostedCommunities = communities;
+
+  return dashboard;
+};
+
+const toogleRSVP = async ({ user, eventId }) => {
+  const isEventAlreadyRSVPED = user.rsvpedEvents.includes(eventId);
+
+  if (isEventAlreadyRSVPED) {
+    user.rsvpedEvents.pull(eventId);
+  } else {
+    user.rsvpedEvents.push(eventId);
+  }
+
+  await user.save();
+};
 export default {
   registerUser,
   loginUser,
   joinCommunity,
   makeHost,
+  leaveCommunity,
+  dashboard,
+  hostDashboard,
+  toogleRSVP,
 };

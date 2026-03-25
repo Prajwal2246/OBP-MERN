@@ -15,5 +15,6 @@ router.post(
 router.post("/all", communityControler.getAllCommunities);
 router.get("/specific", communityControler.getSpecificCommunity);
 router.get("/with-members", communityControler.getCommunityWithMembers);
+router.delete("/:id",authMiddleware,isHostMiddleware,communityControler.deleteCommunity)
 
 export default router;

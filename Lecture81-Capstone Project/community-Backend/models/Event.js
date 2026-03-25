@@ -41,6 +41,6 @@ const eventSchema = new mongoose.Schema({
 });
 
 //schema to mongodb db me dalana hai to schema to convert krna pdta hai
-const Event = mongoose.model("event", eventSchema);
+const Event = mongoose.model("Event", eventSchema);
 export default Event;
 // add capacity

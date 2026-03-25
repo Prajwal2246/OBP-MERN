@@ -145,6 +145,95 @@ const getCurrUser = async (req, res) => {
     });
   }
 };
+
+const leaveCommunity = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { _id: user_id } = req.user;
+    await userService.leaveCommunity({ id, user_id });
+    res.json({
+      data: { message: "user left the community successfully" },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "failed to remove user from this community",
+        info: err.message,
+      },
+      data: null,
+    });
+  }
+};
+
+const dashboard = async (req, res) => {
+  try {
+    const { _id: id } = req.user;
+    const dashboard = await userService.dashboard(id);
+    res.json({
+      data: {
+        message: "successfully fetched the member dashboard",
+        dashboard,
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "failed to fetch the member dashboard",
+        info: err.message,
+      },
+      data: null,
+    });
+  }
+};
+
+const hostDashboard = async (req, res) => {
+  try {
+    const { _id: id } = req.user;
+    const dashboard = await userService.hostDashboard(id);
+    res.json({
+      data: {
+        message: "fetched host dashboard successfully",
+        dashboard,
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "unable to fetch hostDashboard",
+        info: err.message,
+      },
+    });
+  }
+};
+
+const toogleRSVP = async (req, res) => {
+  try {
+    const user = req.user;
+    const { eventId } = req.query;
+
+    await userService.toogleRSVP({ user, eventId });
+    res.json({
+      data: {
+        messsage: "rsvped event toggled succesfully",
+      },
+      error: null,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      error: {
+        message: "cannt toggle rsvp event",
+        info: err.message,
+      },
+      data: null,
+    });
+  }
+};
 export default {
   register,
   login,
@@ -152,4 +241,8 @@ export default {
   joinCommunity,
   makeHost,
   getCurrUser,
+  leaveCommunity,
+  dashboard,
+  hostDashboard,
+  toogleRSVP,
 };

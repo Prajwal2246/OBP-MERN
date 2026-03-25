@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
   rsvpedEvents: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "events",
+      ref: "event",
     },
   ],
 });
